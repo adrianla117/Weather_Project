@@ -1,0 +1,54 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: "Lora";
+    background-color: blanchedalmond;
+}
+
+.titulo1{
+    text-align: center;
+    font-weight: lighter;
+    padding: 15px;
+}
+
+.menu{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    margin-bottom: 12px;
+    background-color: #48484A;
+    height: 150px;
+}
+
+.menu li{
+    padding: 6px;
+}
+
+.menu a{
+    text-decoration: none;
+    color: white;
+    transition: 0.5s color;
+    font-size: 20px;
+}
+
+.menu a:hover{
+    color: #F25C3D;
+}
+
+.logo1 img{
+    width: 240px;
+    height: 230px;
+}
+
+.contenedor-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}

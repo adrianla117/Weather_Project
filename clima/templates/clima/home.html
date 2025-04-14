@@ -4,22 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Clima</title>
-    <Link rel="stylesheet" href="home.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    
+    {% load static %} <!--Así se cargan los archivos estáticos en Django (css, por ejemplo)-->
+    <link rel="stylesheet" href="{% static 'clima/home.css' %}">
 </head>
 
 <body>
+    <div class="contenedor-menu">
+        <ul class="menu">
+            <li><a class="logo1" href="{% url 'home' %}"><img src="{% static 'clima/Logo_SkyCheck.png' %}" alt="logo1"></a></li>
+            <li><a href="{% url 'home' %}">Inicio</a></li>
+            <li><a href="#">Localizador</a></li>
+            <li><a href="#">Comparador</a></li>
+            <li><a class="boton-sesion" href="#">Iniciar Sesión</a></li>
+        </ul>
+    </div>
+
     <h1 class="titulo1">Consulta el clima de tu ciudad</h1>
 
-    <form method="GET">
-        <input type="text" name="city" placeholder="Introduce una ciudad" required>
-        <button type="submit">Buscar</button>
-    </form>
-
-    {% if weather %} <!--weather: es el diccionario con los datos que recibimos desde la API. Este bloque solo se muestra si hay datos (if)-->
-        <h2>Clima en {{ weather.name }}</h2> 
+    <div class="contenedor-form">
+        <form method="GET">
+            <input type="text" name="city" placeholder="Introduce una ciudad" required>
+            <button type="submit">Buscar</button>
+        </form>
+    
+        {% if weather %}
+        <!--weather: es el diccionario con los datos que recibimos desde la API. Este bloque solo se muestra si hay datos (if)-->
+        <h2>Clima en {{ weather.name }}</h2>
         <p>Temperatura: {{ weather.main.temp }} °C</p>
         <p>Condición: {{ weather.weather.0.description }}</p>
-    {% endif %}
+        {% endif %}
+    </div>
 </body>
 
 </html>
