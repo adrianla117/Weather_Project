@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Clima</title>
+    <Link rel="stylesheet" href="home.css"/>
+</head>
+
+<body>
+    <h1 class="titulo1">Consulta el clima de tu ciudad</h1>
+
+    <form method="GET">
+        <input type="text" name="city" placeholder="Introduce una ciudad" required>
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if weather %} <!--weather: es el diccionario con los datos que recibimos desde la API. Este bloque solo se muestra si hay datos (if)-->
+        <h2>Clima en {{ weather.name }}</h2> 
+        <p>Temperatura: {{ weather.main.temp }} °C</p>
+        <p>Condición: {{ weather.weather.0.description }}</p>
+    {% endif %}
+</body>
+
+</html>

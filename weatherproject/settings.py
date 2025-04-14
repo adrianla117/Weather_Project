@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'clima', #Añadimos el nombre de la aplicación
 ]
 
 MIDDLEWARE = [
