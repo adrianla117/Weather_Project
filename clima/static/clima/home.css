@@ -52,3 +52,24 @@ body{
     align-items: center;
     gap: 8px;
 }
+
+#backgrounds{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+#backgrounds .overlay{ /*Usamos overlay para hacer transparente solo la imagen; si usamos opacity afectaría a todo el div (incluídos hijos)*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 1);
+}

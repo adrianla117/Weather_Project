@@ -4,13 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Clima</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+
     {% load static %} <!--Así se cargan los archivos estáticos en Django (css, por ejemplo)-->
     <link rel="stylesheet" href="{% static 'clima/home.css' %}">
+
+    {% if weather %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const condition = "{{ weather.weather.0.main }}";
+            const backgrounds = {
+                'Clear': 'url(https://images.unsplash.com/photo-1501973801540-537f08ccae7d)',
+                'Rain': 'url({% static "clima/Lluvia.png" %})', /*En javascript siempre es con url, no href*/
+                'Clouds': 'url(https://images.unsplash.com/photo-1499346030926-9a72daac6c63)',
+                'Snow': 'url(https://images.unsplash.com/photo-1608889175114-e2603d1b4f7c)',
+                'Thunderstorm': 'url(https://images.unsplash.com/photo-1500674425229-f692875b0ab7)',
+                'Drizzle': 'url(https://images.unsplash.com/photo-1561484934-9a6c3cf9d1b3)',
+                'Mist': 'url(https://images.unsplash.com/photo-1502082553048-f009c37129b9)'
+            };
+
+            const contenedorImg = document.getElementById("backgrounds");
+            if (contenedorImg && backgrounds[condition]){
+                contenedorImg.style.backgroundImage = backgrounds[condition];
+            }
+        });
+    </script>
+    {% endif %}
 </head>
 
 <body>
+    <div id="backgrounds"></div>
+
     <div class="contenedor-menu">
         <ul class="menu">
             <li><a class="logo1" href="{% url 'home' %}"><img src="{% static 'clima/Logo_SkyCheck.png' %}" alt="logo1"></a></li>
