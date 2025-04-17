@@ -1,51 +1,77 @@
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-body{
+body {
     font-family: "Lora";
     background-color: blanchedalmond;
+    min-height: 100vh; /*Hace que el fondo cubra todo el body (100vh = 100% del alto de la pantalla)*/
+    position: relative; /*Posiciona el body para que el fondo cubra todo el body*/
+    display: flex;
+    flex-direction: column; /*Organiza el menú arriba y el contenido abajo*/
+    overflow-x: hidden; /*Evita el scroll horizontal*/
 }
 
-.titulo1{
-    text-align: center;
-    font-weight: lighter;
-    padding: 15px;
+#fondo-clima {
+    position: fixed; /*Fija el fondo para que no se mueva al hacer scroll*/
+    top: 0;
+    left: 0; /*El top y left son 0 para que el fondo cubra toda la pantalla*/
+    width: 100vw;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover; /*Cubre todo el contenedor*/
+    background-position: center; /*Centra la imagen*/
+    z-index: -1; /*Coloca el fondo detrás de todo el contenido*/
+    transition: filter 1s ease; /*Si se cambia el filter con JS, se animará en medio segundo*/
 }
 
-.menu{
+.menu {
     display: flex;
     justify-content: space-around;
     align-items: center;
     list-style: none;
-    margin-bottom: 12px;
     background-color: #48484A;
     height: 150px;
 }
 
-.menu li{
+.menu li {
     padding: 6px;
 }
 
-.menu a{
+.menu a {
     text-decoration: none;
     color: white;
     transition: 0.5s color;
     font-size: 20px;
 }
 
-.menu a:hover{
+.menu a:hover {
     color: #F25C3D;
 }
 
-.logo1 img{
+.logo1 img {
     width: 240px;
     height: 230px;
 }
 
-.contenedor-form{
+.contenido-central {
+    flex: 1; /*Permite que el contenido central ocupe el espacio restante, osea el espacio que queda debajo del menú (flex: 1)*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+}
+
+.titulo1 {
+    font-weight: lighter;
+    padding: 15px;
+}
+
+.contenedor-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -53,23 +79,22 @@ body{
     gap: 8px;
 }
 
-#backgrounds{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    z-index: -1;
+.contenedor-form form > input{
+    font-size: 20px;
+    border: none;
+    border-radius: 8px;
+    border-color: #f1a090;
 }
 
-#backgrounds .overlay{ /*Usamos overlay para hacer transparente solo la imagen; si usamos opacity afectaría a todo el div (incluídos hijos)*/
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 1);
+.contenedor-form form > button{
+    background-color: #f1a090;
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+
+.contenedor-form form > button:hover{
+    background-color: #F25C3D;
 }

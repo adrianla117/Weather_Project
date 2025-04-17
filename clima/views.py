@@ -2,7 +2,7 @@ import requests
 from django.shortcuts import render
 
 def home(request):
-    city = request.GET.get('city')  #busca el parámetro 'city' que viene desde el formulario con el "GET"
+    city = request.GET.get('city', 'Vigo')  #busca el parámetro 'city' que viene desde el formulario con el "GET". Ponemos Vigo como default
     weather_data = None             #aquí vamos a guardar los datos del clima
 
     if city:
