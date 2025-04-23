@@ -27,8 +27,11 @@ SECRET_KEY = 'django-insecure-@v((y9zfxfs=+5b)zr)r*k9p18updy8or(0)j@oc$ai(=k6a-i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'localhost')]
-
+ALLOWED_HOSTS = [
+    os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'localhost'),
+    'www.skycheck.app',
+    'skycheck.app'
+]
 
 # Application definition
 
