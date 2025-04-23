@@ -1,9 +1,29 @@
+# Carpetas de Python
 __pycache__/
-*.pyc
-*.sqlite3
+*.py[cod]
+*.pyo
+
+# Entorno virtual
+venv/
+
+# Base de datos local
+db.sqlite3
+
+# Archivos de entorno y logs
 .env
 *.log
-db.sqlite3
+
+# Archivos de Django estáticos y media
 /static/
-/media/
+staticfiles/
+media/
+
+# VSCode
 .vscode/
+
+# Archivos de migraciones cacheadas
+**/migrations/__pycache__/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
