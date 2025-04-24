@@ -28,6 +28,14 @@
 
     <!--Contenido central-->
     <div class="contenido-central">
+
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}" class="boton-sesion">Cerrar sesión</a></li>
+        {% else %}
+            <li><a href="{% url 'login' %}" class="boton-sesion">Iniciar sesión</a></li>
+            <li><a href="{% url 'registro' %}" class="boton-sesion">Registrarse</a></li>
+        {% endif %}
+
         <h1 class="titulo1">Consulta el clima de tu ciudad</h1>
 
         <!--Contenedor que engloba al formulario y los datos del clima-->

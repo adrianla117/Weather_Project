@@ -1,5 +1,8 @@
 import requests
 from django.shortcuts import render
+from django.contrib.auth import login
+from django.shortcuts import render, redirect
+from .forms import RegistroForm
 
 def home(request):
     city = request.GET.get('city', 'Vigo')  #busca el parámetro 'city' que viene desde el formulario con el "GET". Ponemos Vigo como default
@@ -16,3 +19,15 @@ def home(request):
             weather_data = response.json() #convierte la respuesta en un diccionario de Python con json
 
     return render(request, 'clima/home.html', {'weather': weather_data})
+
+
+def registro(request):
+    if request.method == 'POST':
+        form = RegistroForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  #Inicia sesión automáticamente después del registro
+            return redirect('home')  #Redirige a la vista de inicio después del registro exitoso
+    else:
+        form = RegistroForm()
+    return render(request, 'registration/registro.html', {'form': form})
