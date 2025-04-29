@@ -17,6 +17,7 @@ def forzar_migraciones(request):
 def home(request):
     city = request.GET.get('city', 'Vigo')  #busca el parámetro 'city' que viene desde el formulario con el "GET". Ponemos Vigo como default
     weather_data = None             #aquí vamos a guardar los datos del clima
+    favoritas = []
 
     if city:
         api_key = 'f1d8b93869fc6876f7753af18dc82ccd'  #aquí ponemos la clave que tenemos de OpenWeatherMap
@@ -28,7 +29,14 @@ def home(request):
         if response.status_code == 200: #respuesta 200 si todo va bien
             weather_data = response.json() #convierte la respuesta en un diccionario de Python con json
 
-    return render(request, 'clima/home.html', {'weather': weather_data})
+    #Si el usuario está autenticado, recuperar su favoritas
+    if request.user.is_authenticated:
+        favoritas = CiudadFavorita.objects.filter(usuario=request.user) #Filtra las ciudades favoritas del usuario autenticado
+
+    return render(request, 'clima/home.html', {
+        'weather': weather_data,
+        'favoritas': favoritas, #Pasa las ciudades favoritas al template
+    })
 
 
 def registro(request):
