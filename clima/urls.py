@@ -6,4 +6,5 @@ urlpatterns = [
     path('registro/', views.registro, name='registro'),
     path('forzar-migraciones/', views.forzar_migraciones, name='forzar_migraciones'),
     path('guardar-ciudad/', views.guardar_ciudad, name='guardar_ciudad'),
+    path('eliminar-ciudad/', views.eliminar_ciudad, name='eliminar_ciudad_ajax'),
 ]

@@ -140,6 +140,32 @@
                 obtenerClima(ciudadActual);
             });
         });
+
+        //Eliminar ciudad favorita
+        document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll('.eliminar-ciudad').forEach(button => { //Elimina el botón de la ciudad favorita
+            //Al hacer click en el botón, se envía una petición AJAX para eliminar la ciudad favorita
+            button.addEventListener('click', function () {
+                const ciudadId = this.dataset.id;
+
+                fetch("{% url 'eliminar_ciudad_ajax' %}", { //URL de la vista que elimina la ciudad favorita
+                    //Se envía la ciudad a eliminar como parámetro
+                    method: 'POST',
+                    headers: { //'Content-Type': 'application/json', //Tipo de contenido JSON
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: `ciudad_id=${ciudadId}` //Se envía el ID de la ciudad a eliminar
+                })
+                .then(res => res.json()) //Se espera una respuesta JSON
+                .then(data => {
+                    if (data.success) { //Si la respuesta es exitosa, se elimina la ciudad de la lista
+                        document.getElementById(`ciudad-${ciudadId}`).remove();
+                    }
+                });
+            });
+        });
+    });
     </script>
     {% if user.is_authenticated %}
         <form method="post" action="{% url 'guardar_ciudad' %}">
@@ -159,7 +185,10 @@
         {% if favoritas %}
             <ul>
                 {% for ciudad in favoritas %}
-                    <li>{{ ciudad.nombre }}</li>
+                    <li id="ciudad-{{ ciudad.id }}">
+                        {{ ciudad.nombre }}
+                        <button class="eliminar-ciudad" data-id="{{ ciudad.id }}">❌</button>
+                    </li>
                 {% endfor %}
             </ul>
         {% else %}

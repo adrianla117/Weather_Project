@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from .forms import RegistroForm
 from django.contrib.auth.decorators import login_required
 from .models import CiudadFavorita
+from django.http import JsonResponse
 
 from django.http import HttpResponse
 from django.core.management import call_command
@@ -61,3 +62,12 @@ def guardar_ciudad(request): #Vista para guardar la ciudad favorita del usuario
             if not existe:
                 CiudadFavorita.objects.create(usuario=request.user, nombre=nombre) #Crea la ciudad favorita si no existe
     return redirect('home') #Redirige a la vista de inicio después de guardar la ciudad favorita
+
+@login_required
+def eliminar_ciudad(request):
+    if request.method == 'POST':
+        ciudad_id = request.POST.get('ciudad_id')
+        ciudad = get_object_or_404(CiudadFavorita, id=ciudad_id, usuario=request.user)
+        ciudad.delete()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False}, status=400)

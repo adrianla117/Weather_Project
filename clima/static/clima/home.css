@@ -123,5 +123,15 @@ body {
 }
 
 .panel-favoritas li{
-    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.eliminar-ciudad{
+    background: transparent;
+    border: none;
+    color: red;
+    font-size: 16px;
+    cursor: pointer;
 }
