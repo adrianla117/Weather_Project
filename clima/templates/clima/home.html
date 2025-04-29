@@ -113,6 +113,7 @@
                 .then(data => {
                     //Actualizar texto
                     document.getElementById("ciudad-nombre").textContent = `Clima en ${data.name}`;
+                    document.getElementById("input-ciudad").value = data.name;
                     document.getElementById("temperatura").textContent = `Temperatura: ${data.main.temp} °C`;
                     document.getElementById("condicion").textContent = `Condición: ${data.weather[0].description}`;
 
@@ -143,7 +144,7 @@
     {% if user.is_authenticated %}
         <form method="post" action="{% url 'guardar_ciudad' %}">
             {% csrf_token %}
-            <input type="hidden" name="nombre_ciudad" value="{{ weather.name }}">
+            <input type="hidden" name="nombre_ciudad" id="input-ciudad" value="{{ weather.name }}">
             <button type="submit">Guardar ciudad</button>
         </form>
     {% else %}
