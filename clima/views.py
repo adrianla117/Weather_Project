@@ -3,8 +3,14 @@ from django.shortcuts import render
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from .forms import RegistroForm
+
 from django.http import HttpResponse
 from django.core.management import call_command
+
+def forzar_migraciones(request):
+    call_command('migrate')
+    return HttpResponse("Migraciones aplicadas correctamente.")
+
 
 def home(request):
     city = request.GET.get('city', 'Vigo')  #busca el parámetro 'city' que viene desde el formulario con el "GET". Ponemos Vigo como default
