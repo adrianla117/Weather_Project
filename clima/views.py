@@ -33,7 +33,3 @@ def registro(request):
     else:
         form = RegistroForm()
     return render(request, 'registration/registro.html', {'form': form})
-
-def forzar_migraciones(request):
-    call_command('migrate')
-    return HttpResponse("Migraciones aplicadas correctamente.")
