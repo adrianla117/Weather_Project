@@ -149,7 +149,24 @@
     {% else %}
         <p><em>Inicia sesión para guardar esta ciudad como favorita.</em></p>
     {% endif %}
+
     {% endif %}
+
+    {% if user.is_authenticated %}
+    <div class="panel-favoritas">
+        <h3>Mis ciudades favoritas</h3>
+        {% if favoritas %}
+            <ul>
+                {% for ciudad in favoritas %}
+                    <li>{{ ciudad.nombre }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No has guardado ciudades aún.</p>
+        {% endif %}
+    </div>
+    {% endif %}
+
 </body>
 
 </html>
