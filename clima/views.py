@@ -4,12 +4,12 @@ from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from .forms import RegistroForm
 
-from django.http import HttpResponse
-from django.core.management import call_command
+#from django.http import HttpResponse
+#from django.core.management import call_command
 
-def forzar_migraciones(request):
-    call_command('migrate')
-    return HttpResponse("Migraciones aplicadas correctamente.")
+# def forzar_migraciones(request):
+#     call_command('migrate')
+#     return HttpResponse("Migraciones aplicadas correctamente.")
 
 
 def home(request):
