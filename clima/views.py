@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from .forms import RegistroForm
+from django.contrib.auth.decorators import login_required
+from .models import CiudadFavorita
 
 from django.http import HttpResponse
 from django.core.management import call_command
@@ -39,3 +41,15 @@ def registro(request):
     else:
         form = RegistroForm()
     return render(request, 'registration/registro.html', {'form': form})
+
+@login_required
+def guardar_ciudad(request): #Vista para guardar la ciudad favorita del usuario
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre_ciudad') #Obtiene el nombre de la ciudad del formulario
+        #Si el usuario está autenticado, guarda la ciudad favorita
+        if nombre:
+            #Evita duplicados
+            existe = CiudadFavorita.objects.filter(usuario=request.user, nombre__iexact=nombre).exists()
+            if not existe:
+                CiudadFavorita.objects.create(usuario=request.user, nombre=nombre) #Crea la ciudad favorita si no existe
+    return redirect('home') #Redirige a la vista de inicio después de guardar la ciudad favorita

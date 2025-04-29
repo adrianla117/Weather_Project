@@ -140,6 +140,15 @@
             });
         });
     </script>
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'guardar_ciudad' %}">
+            {% csrf_token %}
+            <input type="hidden" name="nombre_ciudad" value="{{ weather.name }}">
+            <button type="submit">Guardar ciudad</button>
+        </form>
+    {% else %}
+        <p><em>Inicia sesión para guardar esta ciudad como favorita.</em></p>
+    {% endif %}
     {% endif %}
 </body>
 
