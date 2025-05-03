@@ -47,9 +47,9 @@
             </form>
 
             <!--Contenedor dinámico-->
-            <h2 id="ciudad-nombre">Clima en {{ weather.name }}</h2>
-            <p id="temperatura">Temperatura {{ weather.main.temp }} ºC</p>
-            <p id="condicion">Condición: {{ weather.weather.0.description }}</p>
+            <h2 id="ciudad-nombre">Clima en {{ weather.name|default:"" }}</h2>
+            <p id="temperatura">Temperatura {{ weather.main.temp|default:"--" }} ºC</p>
+            <p id="condicion">Condición: {{ weather.weather.0.description|default:"--" }}</p>
         </div>
     </div>
 
@@ -61,7 +61,8 @@
         const backgrounds = {
             'Clear': 'url(https://media.istockphoto.com/id/500540815/es/foto/luz-de-cielo-azul.jpg?s=612x612&w=0&k=20&c=WejFrp7pq9CQ0_3PRLHo_MbszdQ4n5QJPLGimjvDtw4=)',
             'Rain': 'url(https://i.scdn.co/image/ab6761610000e5eb0ab89ee74cb0d9bf66253f6a)',
-            'Clouds': 'url(https://images.unsplash.com/photo-1499346030926-9a72daac6c63)',
+            'Clouds': 'url(https://media.tycsports.com/files/2024/09/10/764634/cristiano-ronaldo-revelo-a-su-candidato-para-el-balon-de-orp_416x555.webp)',
+            //'Clouds': 'url(https://images.unsplash.com/photo-1499346030926-9a72daac6c63)',
             'Snow': 'url(https://images.unsplash.com/photo-1608889175114-e2603d1b4f7c)',
             'Thunderstorm': 'url(https://images.unsplash.com/photo-1500674425229-f692875b0ab7)',
             'Drizzle': 'url(https://images.unsplash.com/photo-1561484934-9a6c3cf9d1b3)',
@@ -166,7 +167,7 @@
     {% if user.is_authenticated %}
         <form method="post" action="{% url 'guardar_ciudad' %}">
             {% csrf_token %}
-            <input type="hidden" name="nombre_ciudad" id="input-ciudad" value="{{ weather.name }}">
+            <input type="hidden" name="nombre_ciudad" id="input-ciudad" value="{{ weather.name|default:'Vigo' }}">
             <button type="submit">Guardar ciudad</button>
         </form>
     {% elif not user.is_authenticated %}
