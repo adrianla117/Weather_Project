@@ -53,8 +53,6 @@
         </div>
     </div>
 
-    {% if weather %}
-    <!--Solo carga este JavaScript si hay información del clima (weather). Dentro elige una imagen de fondo según el tipo de clima y la aplica como backgroundImage al <body>-->
     <!--Script que actualiza el clima automáticamente-->
     <script>
         const API_KEY = "f1d8b93869fc6876f7753af18dc82ccd";
@@ -106,6 +104,8 @@
             }
         }
 
+        //Función para obtener el clima de la ciudad
+        //Se usa la API de OpenWeatherMap para obtener el clima de la ciudad introducida por el usuario
         function obtenerClima(ciudad) {
             const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&units=metric&lang=es&appid=${API_KEY}`;
             fetch(url)
@@ -141,31 +141,27 @@
             });
         });
 
-        //Eliminar ciudad favorita
-        document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll('.eliminar-ciudad').forEach(button => { //Elimina el botón de la ciudad favorita
-            //Al hacer click en el botón, se envía una petición AJAX para eliminar la ciudad favorita
+        //Eliminar ciudad favorita por AJAX
+        document.querySelectorAll('.eliminar-ciudad').forEach(button => {
             button.addEventListener('click', function () {
                 const ciudadId = this.dataset.id;
 
-                fetch("{% url 'eliminar_ciudad_ajax' %}", { //URL de la vista que elimina la ciudad favorita
-                    //Se envía la ciudad a eliminar como parámetro
+                fetch("{% url 'eliminar_ciudad_ajax' %}", {
                     method: 'POST',
-                    headers: { //'Content-Type': 'application/json', //Tipo de contenido JSON
+                    headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'X-CSRFToken': '{{ csrf_token }}'
                     },
-                    body: `ciudad_id=${ciudadId}` //Se envía el ID de la ciudad a eliminar
+                    body: `ciudad_id=${ciudadId}`
                 })
-                .then(res => res.json()) //Se espera una respuesta JSON
+                .then(res => res.json())
                 .then(data => {
-                    if (data.success) { //Si la respuesta es exitosa, se elimina la ciudad de la lista
+                    if (data.success) {
                         document.getElementById(`ciudad-${ciudadId}`).remove();
                     }
                 });
             });
         });
-    });
     </script>
     {% if user.is_authenticated %}
         <form method="post" action="{% url 'guardar_ciudad' %}">
@@ -173,10 +169,8 @@
             <input type="hidden" name="nombre_ciudad" id="input-ciudad" value="{{ weather.name }}">
             <button type="submit">Guardar ciudad</button>
         </form>
-    {% else %}
+    {% elif not user.is_authenticated %}
         <p><em>Inicia sesión para guardar esta ciudad como favorita.</em></p>
-    {% endif %}
-
     {% endif %}
 
     {% if user.is_authenticated %}
