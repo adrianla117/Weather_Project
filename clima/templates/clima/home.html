@@ -28,14 +28,12 @@
 
     <!--Contenido central-->
     <div class="contenido-central">
-        {#
         {% if user.is_authenticated %}
             <li><a href="{% url 'logout' %}" class="boton-sesion">Cerrar sesión</a></li>
         {% else %}
             <li><a href="{% url 'login' %}" class="boton-sesion">Iniciar sesión</a></li>
             <li><a href="{% url 'registro' %}" class="boton-sesion">Registrarse</a></li>
         {% endif %}
-        #}
         <h1 class="titulo1">Consulta el clima de tu ciudad</h1>
 
         <!--Contenedor que engloba al formulario y los datos del clima-->
@@ -143,28 +141,28 @@
         });
 
         //Eliminar ciudad favorita por AJAX
-        // document.querySelectorAll('.eliminar-ciudad').forEach(button => {
-        //     button.addEventListener('click', function () {
-        //         const ciudadId = this.dataset.id;
+        document.querySelectorAll('.eliminar-ciudad').forEach(button => {
+            button.addEventListener('click', function () {
+                const ciudadId = this.dataset.id;
 
-        //         fetch("{% url 'eliminar_ciudad_ajax' %}", {
-        //             method: 'POST',
-        //             headers: {
-        //                 'Content-Type': 'application/x-www-form-urlencoded',
-        //                 'X-CSRFToken': '{{ csrf_token }}'
-        //             },
-        //             body: `ciudad_id=${ciudadId}`
-        //         })
-        //         .then(res => res.json())
-        //         .then(data => {
-        //             if (data.success) {
-        //                 document.getElementById(`ciudad-${ciudadId}`).remove();
-        //             }
-        //         });
-        //     });
-        // });
+                fetch("{% url 'eliminar_ciudad_ajax' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: `ciudad_id=${ciudadId}`
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById(`ciudad-${ciudadId}`).remove();
+                    }
+                });
+            });
+        });
     </script>
-    {#
+    
     {% if user.is_authenticated %}
         <form method="post" action="{% url 'guardar_ciudad' %}">
             {% csrf_token %}
@@ -174,8 +172,8 @@
     {% elif not user.is_authenticated %}
         <p><em>Inicia sesión para guardar esta ciudad como favorita.</em></p>
     {% endif %}
-    #}
-    {#
+    
+    
     {% if user.is_authenticated %}
     <div class="panel-favoritas">
         <h3>Mis ciudades favoritas</h3>
@@ -193,7 +191,7 @@
         {% endif %}
     </div>
     {% endif %}
-    #}
+    
 </body>
 
 </html>
