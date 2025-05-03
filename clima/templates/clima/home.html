@@ -143,26 +143,26 @@
         });
 
         //Eliminar ciudad favorita por AJAX
-        document.querySelectorAll('.eliminar-ciudad').forEach(button => {
-            button.addEventListener('click', function () {
-                const ciudadId = this.dataset.id;
+        // document.querySelectorAll('.eliminar-ciudad').forEach(button => {
+        //     button.addEventListener('click', function () {
+        //         const ciudadId = this.dataset.id;
 
-                fetch("{% url 'eliminar_ciudad_ajax' %}", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    body: `ciudad_id=${ciudadId}`
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById(`ciudad-${ciudadId}`).remove();
-                    }
-                });
-            });
-        });
+        //         fetch("{% url 'eliminar_ciudad_ajax' %}", {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Content-Type': 'application/x-www-form-urlencoded',
+        //                 'X-CSRFToken': '{{ csrf_token }}'
+        //             },
+        //             body: `ciudad_id=${ciudadId}`
+        //         })
+        //         .then(res => res.json())
+        //         .then(data => {
+        //             if (data.success) {
+        //                 document.getElementById(`ciudad-${ciudadId}`).remove();
+        //             }
+        //         });
+        //     });
+        // });
     </script>
     {#
     {% if user.is_authenticated %}
