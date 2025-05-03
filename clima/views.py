@@ -6,7 +6,6 @@ from .forms import RegistroForm
 from django.contrib.auth.decorators import login_required
 from .models import CiudadFavorita
 from django.http import JsonResponse
-
 from django.http import HttpResponse
 from django.core.management import call_command
 
@@ -71,3 +70,9 @@ def eliminar_ciudad(request):
         ciudad.delete()
         return JsonResponse({'success': True})
     return JsonResponse({'success': False}, status=400)
+
+
+def generar_estaticos(request): #Vista para generar archivos estáticos
+    #Ejecuta el comando collectstatic para recopilar archivos estáticos
+    call_command('collectstatic', interactive=False)
+    return HttpResponse("Archivos estáticos recopilados.")
