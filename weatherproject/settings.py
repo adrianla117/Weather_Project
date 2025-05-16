@@ -14,6 +14,9 @@ from pathlib import Path
 import dj_database_url
 import os
 
+OPENWEATHERMAP_API_KEY = 'f1d8b93869fc6876f7753af18dc82ccd' #Clave de OpenWeatherMap
+GOOGLE_PLACES_API_KEY = 'AIzaSyAKjn4e0DJOzFxsexlk_gd65oAM5IWquxA' #Clave de Google Places API
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -30,7 +33,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'localhost'),
     'www.skycheck.app',
-    'skycheck.app'
+    'skycheck.app',
+    '127.0.0.1'
 ]
 
 # Application definition
