@@ -28,6 +28,7 @@ executing==2.0.1
 fastjsonschema==2.19.1
 fqdn==1.5.1
 googlemaps==4.10.0
+gunicorn
 h11==0.14.0
 httpcore==1.0.5
 httpx==0.27.0
