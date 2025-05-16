@@ -5,26 +5,31 @@
 }
 
 body {
-    font-family: "Lora";
-    background-color: blanchedalmond;
-    min-height: 100vh; /*Hace que el fondo cubra todo el body (100vh = 100% del alto de la pantalla)*/
-    position: relative; /*Posiciona el body para que el fondo cubra todo el body*/
+    font-family: "Lora", serif;
+    min-height: 100vh;
+    position: relative;
     display: flex;
-    flex-direction: column; /*Organiza el menú arriba y el contenido abajo*/
-    overflow-x: hidden; /*Evita el scroll horizontal*/
+    flex-direction: column;
+    overflow-x: hidden;
 }
 
 #fondo-clima {
-    position: fixed; /*Fija el fondo para que no se mueva al hacer scroll*/
+    position: fixed;
     top: 0;
-    left: 0; /*El top y left son 0 para que el fondo cubra toda la pantalla*/
+    left: 0;
     width: 100vw;
     height: 100vh;
+    background-image: var(--background-image-url, url('../default_background.jpg')); /*Usa la variable CSS y un fallback directo en CSS si la variable no está definida*/
     background-repeat: no-repeat;
-    background-size: cover; /*Cubre todo el contenedor*/
-    background-position: center; /*Centra la imagen*/
-    z-index: -1; /*Coloca el fondo detrás de todo el contenido*/
-    transition: filter 1s ease; /*Si se cambia el filter con JS, se animará en medio segundo*/
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    transition: filter 1s ease, background-image 0.5s ease-in-out; /*Animación para filtro y cambio de imagen*/
+}
+
+.contenedor-menu {
+    width: 100%; /*Aseguramos que ocupe todo el ancho*/
+    background-color: #48484A;
 }
 
 .menu {
@@ -32,8 +37,10 @@ body {
     justify-content: space-around;
     align-items: center;
     list-style: none;
-    background-color: #48484A;
     height: 150px;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .menu li {
@@ -56,19 +63,60 @@ body {
     height: 230px;
 }
 
+/*Estilos para los botones de usuario en el menú*/
+.menu-usuario-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+}
+
+.menu-usuario {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.menu-usuario .boton-sesion, .menu-usuario form button.boton-sesion {
+    text-decoration: none;
+    color: white;
+    background: none;
+    border: 1px solid white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s all;
+}
+
+.menu-usuario .boton-sesion:hover, .menu-usuario form button.boton-sesion:hover {
+    background-color: #F25C3D;
+    color: white;
+    border-color: #F25C3D;
+}
+
+
 .contenido-central {
-    flex: 1; /*Permite que el contenido central ocupe el espacio restante, osea el espacio que queda debajo del menú (flex: 1)*/
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 20px;
     text-align: center;
+    padding: 20px; /*padding para que el contenido no pegue a los bordes */
+    color: #333;
 }
 
 .titulo1 {
     font-weight: lighter;
     padding: 15px;
+    font-size: 2.5em;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /*Sombra para legibilidad*/
 }
 
 .contenedor-form {
@@ -76,62 +124,123 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 15px;
+    background-color: rgba(255, 255, 255, 0.85); /*Fondo semitransparente para el formulario*/
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.contenedor-form form > input{
-    font-size: 20px;
-    border: none;
+.contenedor-form h2, .contenedor-form p {
+    color: #333;
+}
+
+
+.contenedor-form form {
+    display: flex; /*Para alinear input y botón en la misma línea*/
+    gap: 10px;
+    align-items: center;
+}
+
+.contenedor-form form input[type="text"] {
+    font-size: 18px;
+    border: 1px solid #ccc;
     border-radius: 8px;
-    border-color: #f1a090;
+    padding: 10px 15px;
 }
 
-.contenedor-form form > button{
+.contenedor-form form button[type="submit"] {
     background-color: #f1a090;
     color: white;
     border: none;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.5s ease;
+    padding: 12px 20px;
+    font-size: 18px;
+    border-radius: 8px;
 }
 
-.contenedor-form form > button:hover{
+.contenedor-form form button[type="submit"]:hover {
     background-color: #F25C3D;
 }
 
-.panel-favoritas{
+.panel-favoritas {
     position: fixed;
     right: 0;
     top: 150px;
-    width: 250px;
-    background-color: rgba(0, 0, 0, 0.7);
+    width: 280px;
+    background-color: rgba(0, 0, 0, 0.8);
     color: white;
-    padding: 15px;
+    padding: 20px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     z-index: 100;
     font-family: "Lora", sans-serif;
+    box-shadow: -3px 3px 10px rgba(0,0,0,0.3);
 }
 
-.panel-favoritas h3{
-    margin-bottom: 10px;
+.panel-favoritas h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #555;
+    padding-bottom: 10px;
 }
 
-.panel-favoritas ul{
+.panel-favoritas ul {
     list-style: none;
     padding-left: 0;
 }
 
-.panel-favoritas li{
+.panel-favoritas li {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #444;
 }
 
-.eliminar-ciudad{
+.panel-favoritas li:last-child {
+    border-bottom: none; /*Quitar el último separador*/
+}
+
+.eliminar-ciudad {
     background: transparent;
     border: none;
-    color: red;
+    color: #ff6b6b;
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.eliminar-ciudad:hover {
+    color: #e03131;
+}
+
+/*Estilos para el botón de guardar ciudad si no está en el menú*/
+#form-guardar-ciudad {
+    margin-top: 20px;
+}
+
+#form-guardar-ciudad button[type="submit"] {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#form-guardar-ciudad button[type="submit"]:hover {
+    background-color: #4cae4c;
+}
+
+/*Mensaje para iniciar sesión (debajo del formulario)*/
+.contenido-central > p em {
+    background-color: rgba(255, 230, 200, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    color: #555;
 }

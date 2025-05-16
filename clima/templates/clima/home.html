@@ -1,205 +1,104 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
-    <title>Clima</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-
-    {% load static %} <!--Comando de Django para poder usar archivos estáticos como CSS o imágenes-->
+    <title>SkyCheck - Clima</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="{% static 'clima/home.css' %}">
+    <link rel="icon" href="{% static 'clima/Logo_SkyCheck.png' %}" type="image/png">
+
+    <style>
+        :root{
+            /*Variable CSS para la imagen de fondo, establecida por Django*/
+            {% if background_image_url %}
+                --background-image-url: url("{{ background_image_url }}"); /*Usamos la variable*/
+            {% else %}
+                /*Fallback si no hay imagen de la API o antes de la primera búsqueda, utilizamos una imagen por defecto que tenemos guardada*/
+                --background-image-url: url("{% static 'clima/default_background.jpg' %}");
+            {% endif %}
+        }
+    </style>
 </head>
 
 <body>
-    <!--Fondo visual-->
     <div id="fondo-clima"></div>
 
-    <!--Menú de navegación con logo y enlaces-->
     <div class="contenedor-menu">
-        <ul class="menu">
+        <nav class="menu">
             <li><a class="logo1" href="{% url 'home' %}"><img src="{% static 'clima/Logo_SkyCheck.png' %}"
-                        alt="logo1"></a></li>
+                        alt="SkyCheck Logo"></a></li>
             <li><a href="{% url 'home' %}">Inicio</a></li>
-            <li><a href="#">Localizador</a></li>
-            <li><a href="#">Comparador</a></li>
-            <!-- <li><a class="boton-sesion" href="#">Iniciar Sesión</a></li> -->
-        </ul>
-    </div>
+            <li><a href="#">Localizador</a></li> <li><a href="#">Comparador</a></li> </nav>
 
-    <!--Contenido central-->
-    <div class="contenido-central">
-        {% if user.is_authenticated %}
-            <li>
-                <form method="post" action="{% url 'logout' %}" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="boton-sesion" style="background:none;border:none;color:inherit;cursor:pointer;">
-                        Cerrar sesión
-                    </button>
-                </form>
-            </li>
-        {% else %}
-            <li><a href="{% url 'login' %}" class="boton-sesion">Iniciar sesión</a></li>
-            <li><a href="{% url 'registro' %}" class="boton-sesion">Registrarse</a></li>
-        {% endif %}
-        
-        <h1 class="titulo1">Consulta el clima de tu ciudad</h1>
-
-        <!--Contenedor que engloba al formulario y los datos del clima-->
-        <div class="contenedor-form">
-            <!--Formulario para introducir el nombre de la ciudad-->
-            <form method="GET" id="form-ciudad">
-                <input type="text" name="city" placeholder="Introduce una ciudad" required>
-                <button type="submit">Buscar</button>
-            </form>
-
-            <!--Contenedor dinámico-->
-            <h2 id="ciudad-nombre">Clima en {{ weather.name|default:"" }}</h2>
-            <p id="temperatura">Temperatura {{ weather.main.temp|default:"--" }} ºC</p>
-            <p id="condicion">Condición: {{ weather.weather.0.description|default:"--" }}</p>
+        <div class="menu-usuario-container">
+            <ul class="menu-usuario">
+                {% if user.is_authenticated %}
+                <li>
+                    <form id="logout-form" method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="boton-sesion">Cerrar sesión</button>
+                    </form>
+                </li>
+                {% else %}
+                <li><a href="{% url 'login' %}" class="boton-sesion">Iniciar sesión</a></li>
+                <li><a href="{% url 'registro' %}" class="boton-sesion">Registrarse</a></li>
+                {% endif %}
+            </ul>
         </div>
     </div>
 
-    <!--Script que actualiza el clima automáticamente-->
-    <script>
-        const API_KEY = "f1d8b93869fc6876f7753af18dc82ccd";
-        let ciudadActual = "{{ weather.name|default:'Vigo' }}"; //Coge la ciudad que buscamos pero por defecto sale Vigo
+    <div class="contenido-central">
+        <h1 class="titulo1">Consulta el clima de tu ciudad</h1>
 
-        const backgrounds = {
-            'Clear': 'url(https://media.istockphoto.com/id/500540815/es/foto/luz-de-cielo-azul.jpg?s=612x612&w=0&k=20&c=WejFrp7pq9CQ0_3PRLHo_MbszdQ4n5QJPLGimjvDtw4=)',
-            'Rain': 'url(https://i.scdn.co/image/ab6761610000e5eb0ab89ee74cb0d9bf66253f6a)',
-            'Clouds': 'url(https://media.tycsports.com/files/2024/09/10/764634/cristiano-ronaldo-revelo-a-su-candidato-para-el-balon-de-orp_416x555.webp)',
-            //'Clouds': 'url(https://images.unsplash.com/photo-1499346030926-9a72daac6c63)',
-            'Snow': 'url(https://images.unsplash.com/photo-1608889175114-e2603d1b4f7c)',
-            'Thunderstorm': 'url(https://images.unsplash.com/photo-1500674425229-f692875b0ab7)',
-            'Drizzle': 'url(https://images.unsplash.com/photo-1561484934-9a6c3cf9d1b3)',
-            'Mist': 'url(https://images.unsplash.com/photo-1502082553048-f009c37129b9)',
-            'Smoke': 'url(https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0)',
-            'Dust': 'url(https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0)',
-            'Fog': 'url(https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0)',
-            'Sand': 'url(https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0)',
-            'Ash': 'url(https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0)',
-            'Squall': 'url(https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0)',
-            'Tornado': 'url(https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0)',
-            'Haze': 'url(https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0)'
-        };
+        <div class="contenedor-form">
+            <form method="GET" id="form-ciudad">
+                <input type="text" name="city" id="input-ciudad-nombre" placeholder="Introduce una ciudad"
+                    value="{{ weather.name|default:'Vigo' }}" required>
+                <button type="submit">Buscar</button>
+            </form>
 
-        function actualizarFondo(condition) {
-            const fondo = document.getElementById('fondo-clima');
-            fondo.style.filter = "none";
+            <h2 id="ciudad-nombre">Clima en {{ weather.name|default:"Tu Ciudad" }}</h2>
+            <p id="temperatura">Temperatura: {{ weather.main.temp|default:"--" }} °C</p>
+            <p id="condicion">Condición: {{ weather.weather.0.description|default:"--" }}</p>
+        </div>
 
-            const efectos = {
-                'Mist': "blur(3px)",
-                'Snow': "brightness(1.1)",
-                'Rain': "grayscale(0.3)",
-                'Thunderstorm': "brightness(0.8)",
-                'Drizzle': "brightness(1.2)",
-                'Clouds': "brightness(0.9)",
-                'Clear': "brightness(1.5)",
-                'Smoke': "blur(2px)",
-                'Dust': "blur(2px)",
-                'Fog': "blur(2px)",
-                'Sand': "blur(2px)",
-                'Ash': "blur(2px)",
-                'Squall': "blur(2px)",
-                'Tornado': "blur(2px)",
-                'Haze': "blur(2px)"
-            };
-
-            if (condition in backgrounds) {
-                fondo.style.backgroundImage = backgrounds[condition];
-                fondo.style.filter = efectos[condition] || "none";
-            }
-        }
-
-        //Función para obtener el clima de la ciudad
-        //Se usa la API de OpenWeatherMap para obtener el clima de la ciudad introducida por el usuario
-        function obtenerClima(ciudad) {
-            const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&units=metric&lang=es&appid=${API_KEY}`;
-            fetch(url)
-                .then(res => res.json())
-                .then(data => {
-                    //Actualizar texto
-                    document.getElementById("ciudad-nombre").textContent = `Clima en ${data.name}`;
-                    document.getElementById("input-ciudad").value = data.name;
-                    document.getElementById("temperatura").textContent = `Temperatura: ${data.main.temp} °C`;
-                    document.getElementById("condicion").textContent = `Condición: ${data.weather[0].description}`;
-
-                    //Actualizar fondo
-                    actualizarFondo(data.weather[0].main);
-                })
-                .catch(err => console.error("Error al obtener el clima: ", err));
-        }
-
-        //Primer llamada al cargar
-        document.addEventListener("DOMContentLoaded", function () {
-            obtenerClima(ciudadActual);
-
-            //Auto-actualizar cada 60s
-            setInterval(() => {
-                obtenerClima(ciudadActual);
-            }, 60000);
-
-            //Si se envía un nuevo formulario, actualizar ciudad
-            document.getElementById("form-ciudad").addEventListener("submit", function (e) {
-                e.preventDefault();
-                const nuevaCiudad = this.city.value;
-                ciudadActual = nuevaCiudad;
-                obtenerClima(ciudadActual);
-            });
-        });
-
-        //Eliminar ciudad favorita por AJAX
-        document.querySelectorAll('.eliminar-ciudad').forEach(button => {
-            button.addEventListener('click', function () {
-                const ciudadId = this.dataset.id;
-
-                fetch("{% url 'eliminar_ciudad_ajax' %}", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    body: `ciudad_id=${ciudadId}`
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById(`ciudad-${ciudadId}`).remove();
-                    }
-                });
-            });
-        });
-    </script>
-    
-    {% if user.is_authenticated %}
-        <form method="post" action="{% url 'guardar_ciudad' %}">
+        {% if user.is_authenticated %}
+        <form id="form-guardar-ciudad" method="post" action="{% url 'guardar_ciudad' %}">
             {% csrf_token %}
-            <input type="hidden" name="nombre_ciudad" id="input-ciudad" value="{{ weather.name|default:'Vigo' }}">
-            <button type="submit">Guardar ciudad</button>
+            <input type="hidden" name="nombre_ciudad" id="input-ciudad-a-guardar" value="{{ weather.name|default:'Vigo' }}">
+            <button type="submit">Guardar ciudad como favorita</button>
         </form>
-    {% elif not user.is_authenticated %}
+        {% else %}
         <p><em>Inicia sesión para guardar esta ciudad como favorita.</em></p>
-    {% endif %}
-    
-    
+        {% endif %}
+    </div>
+
     {% if user.is_authenticated %}
-    <div class="panel-favoritas">
+    <div class="panel-favoritas" data-eliminar-url="{% url 'eliminar_ciudad_ajax' %}">
         <h3>Mis ciudades favoritas</h3>
         {% if favoritas %}
-            <ul>
-                {% for ciudad in favoritas %}
-                    <li id="ciudad-{{ ciudad.id }}">
-                        {{ ciudad.nombre }}
-                        <button class="eliminar-ciudad" data-id="{{ ciudad.id }}">❌</button>
-                    </li>
-                {% endfor %}
-            </ul>
+        <ul>
+            {% for ciudad in favoritas %}
+            <li id="ciudad-{{ ciudad.id }}">
+                <span>{{ ciudad.nombre }}</span>
+                <button class="eliminar-ciudad" data-id="{{ ciudad.id }}" title="Eliminar {{ciudad.nombre}} de favoritas">❌</button>
+            </li>
+            {% endfor %}
+        </ul>
         {% else %}
-            <p>No has guardado ciudades aún.</p>
+        <p>No has guardado ninguna ciudad como favorita todavía.</p>
         {% endif %}
     </div>
     {% endif %}
-    
-</body>
 
+    <script id="django-script-vars"
+        data-api-key="f1d8b93869fc6876f7753af18dc82ccd" data-ciudad-inicial="{{ weather.name|default:'Vigo' }}"
+        data-csrf-token="{{ csrf_token }}">
+    </script>
+
+    <script src="{% static 'clima/js/home_script.js' %}"></script>
+</body>
 </html>
