@@ -22,7 +22,7 @@ def home(request):
     favoritas = []
     processed_city_name = city_query
 
-    # 1. Obtener datos del clima de OpenWeatherMap
+    #Obtener datos del clima de OpenWeatherMap
     openweathermap_api_key = getattr(settings, 'OPENWEATHERMAP_API_KEY', None)
     if not openweathermap_api_key:
         print("ADVERTENCIA: OPENWEATHERMAP_API_KEY no está configurada en settings.py")
@@ -31,7 +31,7 @@ def home(request):
         weather_url = f'https://api.openweathermap.org/data/2.5/weather?q={city_query}&appid={openweathermap_api_key}&units=metric&lang=es'
         try:
             response = requests.get(weather_url)
-            response.raise_for_status() # Lanza error para 4xx/5xx
+            response.raise_for_status() #Lanza error para 4xx/5xx
             weather_data = response.json()
             if weather_data and 'name' in weather_data:
                 processed_city_name = weather_data['name']
