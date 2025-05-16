@@ -81,7 +81,6 @@ Pygments==2.17.2
 python-dateutil==2.9.0.post0
 python-json-logger==2.0.7
 pytz==2025.1
-pywinpty==2.0.13
 PyYAML==6.0.1
 pyzmq==26.0.3
 referencing==0.35.1
