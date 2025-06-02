@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Localizador - SkyCheck</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'clima/css/home.css' %}">
+    <link rel="icon" href="{% static 'clima/Logo_SkyCheck.png' %}" type="image/png">
+    
+    <style>
+        #map { height: 400px; width: 100%; margin-bottom: 20px; }
+        .weather-results { margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px;}
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="{% static 'clima/Logo_SkyCheck.png' %}" alt="SkyCheck Logo" class="logo-nav">
+                SkyCheck
+            </div>
+            <ul>
+                <li><a href="{% url 'clima:home' %}">Inicio</a></li>
+                <li><a href="{% url 'clima:localizador' %}" class="active">Localizador</a></li>
+                </ul>
+            <div class="auth-buttons">
+                {% if user.is_authenticated %}
+                    <span>Hola, {{ user.username }}</span>
+                    <a href="{% url 'logout' %}">Cerrar sesión</a>
+                {% else %}
+                    <a href="{% url 'login' %}">Iniciar sesión</a>
+                    <a href="{% url 'clima:registro' %}">Registrarse</a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Localizador del Clima</h1>
+
+        <button id="use-location-btn">Usar mi ubicación actual</button>
+
+        <div id="map"></div>
+
+        <div id="weather-info-localizador" class="weather-results" style="display: none;">
+            <h2>Clima en <span id="city-name-localizador"></span></h2>
+            <p>Temperatura: <span id="temp-localizador"></span></p>
+            <p>Condición: <span id="condition-localizador"></span></p>
+            <p>Humedad: <span id="humidity-localizador"></span>%</p>
+            <p>Viento: <span id="wind-localizador"></span> km/h</p>
+            </div>
+    </main>
+
+    <footer>
+        <p>&copy; {% now "Y" %} SkyCheck. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+    <script src="{% static 'clima/js/localizador_script.js' %}"></script>
+</body>
+</html>
