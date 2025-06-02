@@ -127,3 +127,9 @@ def generar_estaticos(request): #Vista para generar archivos estáticos
     #Ejecuta el comando collectstatic para recopilar archivos estáticos
     call_command('collectstatic', interactive=False)
     return HttpResponse("Archivos estáticos recopilados.")
+
+
+def localizador_view(request):
+    #Contexto para la vista del localizador
+    context = {}
+    return render(request, 'clima/localizador.html', context)
