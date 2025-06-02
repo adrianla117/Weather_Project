@@ -11,6 +11,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
+    background-color: blanchedalmond;
 }
 
 .contenedor-menu {
@@ -134,4 +135,26 @@ body {
     line-height: 1.6;
     margin-bottom: 5px;
     color: #555;
+}
+
+main.container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+}
+
+footer {
+    background-color: #48484A;
+    color: #F25C3D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 120px;
 }
