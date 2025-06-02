@@ -127,7 +127,7 @@ body {
     width: 100%;
     margin-bottom: 20px;
     flex-grow: 1;  /*Permite que el mapa crezca si es el único visible en el wrapper*/
-    border-radius: 4px;
+    border-radius: 5px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
@@ -136,8 +136,14 @@ body {
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-direction: column; /*Para que los elementos dentro de weather-results se coloquen en columna*/
 }
 
 #use-location-btn {

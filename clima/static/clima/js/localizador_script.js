@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             conditionEl.textContent = weatherData.weather[0].description;
             humidityEl.textContent = weatherData.main.humidity;
             windEl.textContent = weatherData.wind.speed;
-            weatherInfoDiv.style.display = 'block'; //Mostrar resultados
+            weatherInfoDiv.style.display = 'flex'; //Mostrar resultados
 
             //Actualizar marcador en el mapa
             if (marker) {
