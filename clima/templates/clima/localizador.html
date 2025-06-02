@@ -20,29 +20,35 @@
 
 <body>
     <header>
-        <nav>
-            <div class="logo-container">
-                <img src="{% static 'clima/Logo_SkyCheck.png' %}" alt="SkyCheck Logo" class="logo-nav">
-                SkyCheck
-            </div>
-            <ul>
+        <div class="contenedor-menu">
+            <nav class="menu">
+                <li><a class="logo1" href="{% url 'home' %}"><img src="{% static 'clima/Logo_SkyCheck.png' %}"
+                            alt="SkyCheck Logo"></a></li>
                 <li><a href="{% url 'home' %}">Inicio</a></li>
-                <li><a href="{% url 'localizador' %}" class="active">Localizador</a></li>
+                <li><a href="{% url 'localizador' %}">Localizador</a></li>
+                <li><a href="#">Comparador</a></li>
+            </nav>
+    
+            <div class="menu-usuario-container">
+                <ul class="menu-usuario">
+                    {% if user.is_authenticated %}
+                    <li>
+                        <form id="logout-form" method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="boton-sesion">Cerrar sesión</button>
+                        </form>
+                    </li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}" class="boton-sesion">Iniciar sesión</a></li>
+                    <li><a href="{% url 'registro' %}" class="boton-sesion">Registrarse</a></li>
+                    {% endif %}
                 </ul>
-            <div class="auth-buttons">
-                {% if user.is_authenticated %}
-                    <span>Hola, {{ user.username }}</span>
-                    <a href="{% url 'logout' %}">Cerrar sesión</a>
-                {% else %}
-                    <a href="{% url 'login' %}">Iniciar sesión</a>
-                    <a href="{% url 'registro' %}">Registrarse</a>
-                {% endif %}
             </div>
-        </nav>
+        </div>
     </header>
 
     <main class="container">
-        <h1>Localizador del Clima</h1>
+        <h1 class="titulo1">Localizador del Clima</h1>
 
         <button id="use-location-btn">Usar mi ubicación actual</button>
 
