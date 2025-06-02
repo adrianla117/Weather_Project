@@ -1,8 +1,6 @@
 from django.urls import path
 from . import views
 
-app_name = 'clima' #Define el nombre del espacio de nombres para las URLs de la aplicación
-
 urlpatterns = [
     path('', views.home, name='home'),
     path('registro/', views.registro, name='registro'),
