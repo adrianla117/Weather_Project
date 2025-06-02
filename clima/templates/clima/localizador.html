@@ -26,8 +26,8 @@
                 SkyCheck
             </div>
             <ul>
-                <li><a href="{% url 'clima:home' %}">Inicio</a></li>
-                <li><a href="{% url 'clima:localizador' %}" class="active">Localizador</a></li>
+                <li><a href="{% url 'home' %}">Inicio</a></li>
+                <li><a href="{% url 'localizador' %}" class="active">Localizador</a></li>
                 </ul>
             <div class="auth-buttons">
                 {% if user.is_authenticated %}
@@ -35,7 +35,7 @@
                     <a href="{% url 'logout' %}">Cerrar sesión</a>
                 {% else %}
                     <a href="{% url 'login' %}">Iniciar sesión</a>
-                    <a href="{% url 'clima:registro' %}">Registrarse</a>
+                    <a href="{% url 'registro' %}">Registrarse</a>
                 {% endif %}
             </div>
         </nav>
