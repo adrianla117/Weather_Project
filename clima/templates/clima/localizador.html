@@ -45,18 +45,20 @@
 
     <main class="container">
         <h1 class="titulo1">Localizador del Clima</h1>
-
+    
         <button id="use-location-btn">Usar mi ubicación actual</button>
-
-        <div id="map"></div>
-
-        <div id="weather-info-localizador" class="weather-results" style="display: none;">
-            <h2>Clima en <span id="city-name-localizador"></span></h2>
-            <p>Temperatura: <span id="temp-localizador"></span></p>
-            <p>Condición: <span id="condition-localizador"></span></p>
-            <p>Humedad: <span id="humidity-localizador"></span>%</p>
-            <p>Viento: <span id="wind-localizador"></span> km/h</p>
+    
+        <div id="map-and-info-container">
+            <div id="map"></div>
+    
+            <div id="weather-info-localizador" class="weather-results" style="display: none;">
+                <h2>Clima en <span id="city-name-localizador"></span></h2>
+                <p>Temperatura: <span id="temp-localizador"></span></p>
+                <p>Condición: <span id="condition-localizador"></span></p>
+                <p>Humedad: <span id="humidity-localizador"></span>%</p>
+                <p>Viento: <span id="wind-localizador"></span> km/h</p>
             </div>
+        </div>
     </main>
 
     <footer>
