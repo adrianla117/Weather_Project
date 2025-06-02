@@ -70,10 +70,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 .openPopup();
             map.setView([lat, lon], 13); //Centrar mapa en la nueva ubicación
 
+            //Forzar actualización del tamaño del mapa DESPUÉS de mostrar la info y actualizar el mapa
+            setTimeout(function() {
+                if (map) {
+                    map.invalidateSize();
+                    console.log('Map size invalidated for side-by-side view');
+                }
+            }, 100); //100 ms de espera para asegurar que el DOM se haya actualizado
+
         } catch (error) {
             console.error("Error fetching weather data:", error);
             alert("No se pudo obtener la información del clima. Inténtalo de nuevo.");
             weatherInfoDiv.style.display = 'none';
+
+            //Forzar actualización del tamaño del mapa DESPUÉS de ocultar la info debido a un error
+            setTimeout(function() {
+                if (map) {
+                    map.invalidateSize();
+                    console.log('Map size invalidated after error / hiding results');
+                }
+            }, 100);
         }
     }
 

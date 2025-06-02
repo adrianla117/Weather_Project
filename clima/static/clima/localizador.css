@@ -97,10 +97,36 @@ body {
     transition: transform 0.6s ease-in-out;
 }
 
+#map-and-info-container {
+    display: flex;
+    flex-direction: row; /*Los elementos hijos se colocarán en fila (horizontalmente)*/
+    align-items: flex-start; /*Alinea los hijos en la parte superior si tienen alturas diferentes*/
+    gap: 20px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#map-and-info-container > #map {
+    flex-basis: 60%; /*El mapa ocupa el 60% del espacio disponible en la fila*/
+    flex-grow: 1;    /*Puede crecer si hay espacio extra*/
+    flex-shrink: 1;  /*Puede encogerse si no hay suficiente espacio*/
+    height: 450px;
+    width: auto;
+    margin-bottom: 0; /*Elimina el margen inferior para que no haya espacio extra debajo del mapa*/
+}
+
+#map-and-info-container > #weather-info-localizador {
+    flex-basis: 35%; /*La info del clima ocupa el 35%*/
+    flex-grow: 1; /*Puede crecer si hay espacio extra*/
+    flex-shrink: 1; /*Puede encogerse si no hay suficiente espacio*/
+    margin-top: 0;
+}
+
 #map {
     height: 800px;
     width: 100%;
     margin-bottom: 20px;
+    flex-grow: 1;  /*Permite que el mapa crezca si es el único visible en el wrapper*/
     border-radius: 4px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
@@ -128,6 +154,10 @@ body {
 
 #use-location-btn:hover {
     background-color: #d94c2a;
+}
+
+#weather-info-localizador { /*Para el display inicial*/
+    display: none; /*Inicialmente oculto, JS lo mostrará*/
 }
 
 #weather-info-localizador h2 {
