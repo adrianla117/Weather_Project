@@ -45,7 +45,7 @@ body {
     color: #F25C3D;
 }
 
-.logo1 img { /* Asegúrate que tu logo en localizador.html usa <a class="logo1"> */
+.logo1 img {
     width: 240px;
     height: 230px;
 }
@@ -103,7 +103,7 @@ body {
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.9); /* Fondo similar al de home para consistencia */
+    background-color: rgba(255, 255, 255, 0.9);
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
