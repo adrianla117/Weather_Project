@@ -8,4 +8,5 @@ urlpatterns = [
     path('generar-estaticos/', views.generar_estaticos, name='generar_estaticos'),
     path('guardar-ciudad/', views.guardar_ciudad, name='guardar_ciudad'),
     path('eliminar-ciudad/', views.eliminar_ciudad_ajax, name='eliminar_ciudad_ajax'),
+    path('localizador/', views.localizador_view, name='localizador'),
 ]
