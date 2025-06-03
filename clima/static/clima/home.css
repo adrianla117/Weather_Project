@@ -30,8 +30,13 @@ body {
 .contenedor-menu {
     width: 100%;
     background-color: #48484A;
-    position: relative; /*Para que el menú de usuario se posicione correctamente*/
+    /*position: relative; /*Para que el menú de usuario se posicione correctamente*/
     height: 150px;;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 150px;
+    z-index: 1000;
 }
 
 .menu {
