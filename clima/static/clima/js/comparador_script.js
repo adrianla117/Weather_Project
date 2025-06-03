@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     highlightsDiv.style.display = 'flex'; //Primero hacerlo visible (ya que el CSS tiene display:flex)
                     void highlightsDiv.offsetWidth; //Forzar reflujo
                     highlightsDiv.classList.add('visible');
-                }, 700); //Esperar a que las tarjetas se animen antes de mostrar los destacados
+                }, 900); //Esperar a que las tarjetas se animen antes de mostrar los destacados
             } else {
                 //Si no hay datos para comparar, oculta los destacados
                 highlightsDiv.style.display = 'none';
