@@ -94,6 +94,10 @@
     </div>
     {% endif %}
 
+    <footer>
+        <p>&copy; {% now "Y" %} SkyCheck. Todos los derechos reservados.</p>
+    </footer>
+
     <script id="django-script-vars"
         data-api-key="f1d8b93869fc6876f7753af18dc82ccd" data-ciudad-inicial="{{ weather.name|default:'Vigo' }}"
         data-csrf-token="{{ csrf_token }}">
