@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const city2Input = document.getElementById('city2-input');
     const compareBtn = document.getElementById('compare-weather-btn');
     const resultsArea = document.getElementById('comparison-results-area');
-    const city1WeatherDiv = document.getElementById('city1-weather');
-    const city2WeatherDiv = document.getElementById('city2-weather');
+    const city1WeatherCard = document.getElementById('city1-weather');
+    const city2WeatherCard = document.getElementById('city2-weather');
     const highlightsDiv = document.getElementById('comparison-highlights');
 
     const API_KEY = 'f1d8b93869fc6876f7753af18dc82ccd';
@@ -19,10 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         resultsArea.style.display = 'block'; //Mostrar área de resultados
-        city1WeatherDiv.innerHTML = '<p>Cargando datos para ' + city1 + '...</p>';
-        city2WeatherDiv.innerHTML = '<p>Cargando datos para ' + city2 + '...</p>';
+        city1WeatherCard.innerHTML = '<p>Cargando datos para ' + city1 + '...</p>';
+        city2WeatherCard.innerHTML = '<p>Cargando datos para ' + city2 + '...</p>';
+        city1WeatherCard.classList.remove('visible'); //Quitar clase por si ya estaba
+        city2WeatherCard.classList.remove('visible'); //Quitar clase por si ya estaba
+        
         highlightsDiv.style.display = 'none';
         highlightsDiv.innerHTML = '<h3>Destacados de la Comparación</h3>'; //Resetear
+        highlightsDiv.classList.remove('visible');
 
         try {
             const [weather1, weather2] = await Promise.all([
@@ -30,17 +34,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 fetchWeatherData(city2)
             ]);
 
-            displayWeather(weather1, city1WeatherDiv, city1);
-            displayWeather(weather2, city2WeatherDiv, city2);
+            displayWeather(weather1, city1WeatherCard, city1); //Añade el contenido de la tarjeta 1
+            displayWeather(weather2, city2WeatherCard, city2); //Añade el contenido de la tarjeta 2
+
+            //Forzar un reflujo del navegador para que reconozca el estado inicial ANTES de añadir la clase .visible
+            //Importante para que la transición ocurra
+            void city1WeatherCard.offsetWidth;
+            void city2WeatherCard.offsetWidth;
+
+            //Activar animación para las tarjetas
+            city1WeatherCard.classList.add('visible');
+            city2WeatherCard.classList.add('visible');
 
             if (weather1 && weather2) {
-                compareAndHighlight(weather1, weather2);
-                highlightsDiv.style.display = 'block';
+                compareAndHighlight(weather1, weather2); //Añade el contenido de los destacados
+
+                //Activar animación para los destacados con un retraso
+                setTimeout(() => {
+                    highlightsDiv.style.display = 'flex'; //Primero hacerlo visible (ya que el CSS tiene display:flex)
+                    void highlightsDiv.offsetWidth; //Forzar reflujo
+                    highlightsDiv.classList.add('visible');
+                }, 700); //Esperar a que las tarjetas se animen antes de mostrar los destacados
+            } else {
+                //Si no hay datos para comparar, oculta los destacados
+                highlightsDiv.style.display = 'none';
+                highlightsDiv.classList.remove('visible');
             }
 
         } catch (error) {
             console.error("Error en la comparación:", error);
             resultsArea.innerHTML = '<p>No se pudieron obtener los datos para la comparación. Inténtalo de nuevo.</p>';
+            //Asegurarse de que todo está reseteado en caso de error
+            city1WeatherCard.classList.remove('visible');
+            city2WeatherCard.classList.remove('visible');
+            highlightsDiv.style.display = 'none';
+            highlightsDiv.classList.remove('visible');
         }
     });
 
@@ -58,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             element.innerHTML = `<h2>${cityNameForError}</h2><p>No se pudieron obtener los datos.</p>`;
             return;
         }
+        
         //Iconos para el clima
         let icon = '❓'; 
         const mainCondition = data.weather[0].main.toLowerCase();
