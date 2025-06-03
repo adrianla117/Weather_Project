@@ -128,8 +128,12 @@ def generar_estaticos(request): #Vista para generar archivos estáticos
     call_command('collectstatic', interactive=False)
     return HttpResponse("Archivos estáticos recopilados.")
 
-
+#Localizador de ciudades
 def localizador_view(request):
     #Contexto para la vista del localizador
     context = {}
     return render(request, 'clima/localizador.html', context)
+
+#Comparador entre ciudades de sus climas
+def comparador_view(request):
+    return render(request, 'clima/comparador.html')
