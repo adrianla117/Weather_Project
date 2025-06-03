@@ -28,8 +28,10 @@ body {
 }
 
 .contenedor-menu {
-    width: 100%; /*Aseguramos que ocupe todo el ancho*/
+    width: 100%;
     background-color: #48484A;
+    position: relative; /*Para que el menú de usuario se posicione correctamente*/
+    height: 150px;;
 }
 
 .menu {
@@ -38,9 +40,9 @@ body {
     align-items: center;
     list-style: none;
     height: 150px;
-    padding: 0 20px;
     max-width: 1200px;
     margin: 0 auto;
+    margin-left: 140px;
 }
 
 .menu li {
@@ -59,15 +61,16 @@ body {
 }
 
 .logo1 img {
-    width: 240px;
-    height: 230px;
+    width: 160px;
+    height: 145px;
 }
 
 /*Estilos para los botones de usuario en el menú*/
 .menu-usuario-container {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    right: 200px;
+    top: 50%; /*Posicionar en el centro verticalmente*/
+    transform: translateY(-50%); /*Centrar verticalmente*/
     z-index: 1001;
 }
 
@@ -76,7 +79,7 @@ body {
     padding: 0;
     margin: 0;
     display: flex;
-    gap: 15px;
+    gap: 30px;
     align-items: center;
 }
 
@@ -107,7 +110,7 @@ body {
     align-items: center;
     gap: 20px;
     text-align: center;
-    padding: 20px; /*padding para que el contenido no pegue a los bordes */
+    padding: 20px; /*padding para que el contenido no se pegue a los bordes*/
     color: #333;
 }
 
