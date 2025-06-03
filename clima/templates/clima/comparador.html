@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Comparador de Clima - SkyCheck</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'clima/localizador.css' %}"> <link rel="icon" href="{% static 'clima/Logo_SkyCheck.png' %}" type="image/png">
+    <style>
+        .comparison-inputs { margin-bottom: 30px; text-align: center; }
+        .comparison-inputs input[type="text"] { padding: 10px; margin: 0 10px; border-radius: 5px; border: 1px solid #ccc; font-size: 1em; }
+        .comparison-inputs button { padding: 10px 20px; font-size: 1em; color: white; background-color: #F25C3D; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease; }
+        .comparison-inputs button:hover { background-color: #d94c2a; }
+
+        #comparison-results-area { display: none; /* Se muestra con JS */ width: 100%; }
+        .comparison-container { display: flex; flex-direction: row; justify-content: space-around; align-items: flex-start; gap: 20px; flex-wrap: wrap; /* Para responsividad */ }
+        .weather-card { background-color: rgba(255, 255, 255, 0.9); border: 1px solid #ccc; border-radius: 8px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 100%; max-width: 400px; /* Ancho para cada tarjeta */ margin-bottom:20px; }
+        .weather-card h2 { margin-top: 0; color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .weather-card p { margin: 8px 0; color: #555; }
+        .weather-icon { font-size: 3em; margin-bottom: 10px; } /* Para iconos del clima si los usas */
+        
+        .comparison-highlights { margin-top: 30px; padding: 20px; background-color: rgba(230, 230, 250, 0.8); border-radius: 8px; text-align: center; }
+        .comparison-highlights h3 { margin-top: 0; }
+        .comparison-highlights p { margin: 5px 0; }
+
+        .activity-suggestion { font-style: italic; color: #0066cc; margin-top:15px; }
+
+        /*Media Query para apilar en móviles*/
+        @media (max-width: 768px) {
+            .comparison-container { flex-direction: column; align-items: center; }
+            .weather-card { max-width: 90%; }
+            .comparison-inputs input[type="text"] { margin-bottom: 10px; width: 80%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="contenedor-menu">
+            <nav class="menu">
+                <li><a class="logo1" href="{% url 'home' %}"><img src="{% static 'clima/Logo_SkyCheck.png' %}" alt="SkyCheck Logo"></a></li>
+                <li><a href="{% url 'home' %}">Inicio</a></li>
+                <li><a href="{% url 'localizador' %}">Localizador</a></li>
+                <li><a href="{% url 'comparador' %}" class="active">Comparador</a></li> </nav>
+            <div class="menu-usuario-container">
+                <ul class="menu-usuario">
+                    {% if user.is_authenticated %}
+                    <li>
+                        <form id="logout-form" method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="boton-sesion">Cerrar sesión</button>
+                        </form>
+                    </li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}" class="boton-sesion">Iniciar sesión</a></li>
+                    <li><a href="{% url 'registro' %}" class="boton-sesion">Registrarse</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 class="titulo1">Comparador de Clima</h1>
+
+        <div class="comparison-inputs">
+            <input type="text" id="city1-input" placeholder="Ciudad 1 (ej: Vigo)">
+            <input type="text" id="city2-input" placeholder="Ciudad 2 (ej: Coruña)">
+            <button id="compare-weather-btn">Comparar</button>
+        </div>
+
+        <div id="comparison-results-area">
+            <div class="comparison-container">
+                <div id="city1-weather" class="weather-card">
+                    </div>
+                <div id="city2-weather" class="weather-card">
+                    </div>
+            </div>
+            <div id="comparison-highlights" class="comparison-highlights" style="display:none;">
+                <h3>Destacados de la Comparación</h3>
+                </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; {% now "Y" %} SkyCheck. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="{% static 'clima/js/comparador_script.js' %}"></script> </body>
+</html>
