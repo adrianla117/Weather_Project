@@ -164,6 +164,7 @@ footer {
     width: 100%;
     max-width: 1000px; /*Ancho máximo para la sección de resultados*/
     margin: 20px auto 0 auto; /*Centrado y con margen superior*/
+    overflow-x: hidden; /*Para evitar scroll horizontal*/;
 }
 
 .comparison-container {
@@ -185,6 +186,23 @@ footer {
     margin-bottom: 20px; /*Espacio por si se apilan en móvil*/
     display: flex;
     flex-direction: column;
+    opacity: 0; /*Inicialmente invisibles*/
+    transition: transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.6s ease-out;
+}
+
+/*Estado inicial específico para cada tarjeta*/
+#city1-weather.weather-card {
+    transform: translateX(-120%); /*Empieza fuera de la pantalla a la izquierda*/
+}
+
+#city2-weather.weather-card {
+    transform: translateX(120%); /*Empieza fuera de la pantalla a la derecha*/
+}
+
+/*Estado final (visible) para las tarjetas cuando se añade la clase .visible*/
+.weather-card.visible {
+    opacity: 1;
+    transform: translateX(0); /*Vuelve a su posición original*/
 }
 
 .weather-card h2 {
@@ -195,7 +213,7 @@ footer {
     padding-bottom: 10px;
     font-size: 1.6em;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -204,10 +222,6 @@ footer {
     color: #444;
     line-height: 1.6;
     font-size: 0.95em;
-}
-
-.weather-card p strong {
-    color: #222;
 }
 
 .weather-icon {
@@ -228,6 +242,15 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    opacity: 0; /*Inicialmente invisible*/
+    transform: translateY(80px); /*Empieza desplazado hacia abajo*/
+    transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease-out;
+}
+
+/*Estado final (visible) para .comparison-highlights cuando se añade la clase .visible*/
+.comparison-highlights.visible {
+    opacity: 1;
+    transform: translateY(0); /*Vuelve a su posición original*/
 }
 
 .comparison-highlights h3 {
