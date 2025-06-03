@@ -164,7 +164,7 @@ footer {
     width: 100%;
     max-width: 1000px; /*Ancho máximo para la sección de resultados*/
     margin: 20px auto 0 auto; /*Centrado y con margen superior*/
-    overflow-x: hidden; /*Para evitar scroll horizontal*/;
+    overflow: hidden; /*Para evitar scroll horizontal*/;
 }
 
 .comparison-container {
@@ -186,23 +186,25 @@ footer {
     margin-bottom: 20px; /*Espacio por si se apilan en móvil*/
     display: flex;
     flex-direction: column;
-    opacity: 0; /*Inicialmente invisibles*/
     transition: transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.6s ease-out;
 }
 
 /*Estado inicial específico para cada tarjeta*/
 #city1-weather.weather-card {
+    opacity: 0; /*Inicialmente invisible*/
     transform: translateX(-120%); /*Empieza fuera de la pantalla a la izquierda*/
 }
 
 #city2-weather.weather-card {
+    opacity: 0; /*Inicialmente invisible*/
     transform: translateX(120%); /*Empieza fuera de la pantalla a la derecha*/
 }
 
 /*Estado final (visible) para las tarjetas cuando se añade la clase .visible*/
-.weather-card.visible {
+#city1-weather.weather-card.visible,
+#city2-weather.weather-card.visible {
     opacity: 1;
-    transform: translateX(0); /*Vuelve a su posición original*/
+    transform: translateX(0); /*Vuelve a su posición original en el layout*/
 }
 
 .weather-card h2 {
@@ -244,7 +246,8 @@ footer {
     align-items: center;
     opacity: 0; /*Inicialmente invisible*/
     transform: translateY(80px); /*Empieza desplazado hacia abajo*/
-    transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease-out;
+    transition: transform 2s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 1s ease-in-out;
+    overflow: hidden; /*Para evitar que el contenido se desborde al animar*/
 }
 
 /*Estado final (visible) para .comparison-highlights cuando se añade la clase .visible*/
