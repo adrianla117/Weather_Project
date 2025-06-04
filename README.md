@@ -39,13 +39,13 @@ SkyCheck es una aplicación web dinámica construida con Django que proporciona 
     ![image](https://github.com/user-attachments/assets/edcb70d0-9b29-479e-a2e0-f48978ad9f1e)
     * [OpenWeatherMap](http://openweathermap.org/api): Para datos meteorológicos.
 
-    ![image](https://github.com/user-attachments/assets/52d17b11-4167-4004-9fd6-8b0ebe7300be)
+    ![image](https://github.com/user-attachments/assets/8470f730-1aad-4959-843c-ac1be6a242e5)
     * [Google Places API](http://googleusercontent.com/console.cloud.google.com/1): Para imágenes de fondo de ciudades.
 
     ![image](https://github.com/user-attachments/assets/7d42de63-2ff9-4d31-bfce-82c7e5af1686)
     * [OpenCage Geocoding API](http://opencagedata.com/api): Para geocodificación inversa en el Localizador.
 
-    ![image](https://github.com/user-attachments/assets/dc38697f-67a2-4d0b-926a-63a834995c78)
+    ![image](https://github.com/user-attachments/assets/1482ce7c-7631-449f-bab1-5924a3ef2d97)
     * [Spotify Embeds](http://googleusercontent.com/developer.spotify.com/1): Para recomendaciones de música.
   
 * **Librerías JavaScript:**
