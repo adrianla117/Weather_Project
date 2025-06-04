@@ -121,6 +121,27 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }, 60000);
 
+    const favoritasToggle = document.getElementById('favoritas-toggle');
+    
+    //Asegurarse de que el panel y el botón de toggle existen antes de añadir el listener
+    if (panelFavoritas && favoritasToggle) {
+        //El contenido a colapsar es el .favoritas-content-wrapper DENTRO del panelFavoritas
+        const favoritasContentWrapper = panelFavoritas.querySelector('.favoritas-content-wrapper');
+
+        if (favoritasContentWrapper) {
+            favoritasToggle.addEventListener('click', () => {
+                panelFavoritas.classList.toggle('is-open');
+            });
+
+            //Iniciar abierto/desplegado si ya hay favoritas guardadas
+            //Buscamos si hay al menos un elemento li dentro de .lista-ciudades-favoritas
+            const tieneFavoritas = favoritasContentWrapper.querySelector('.lista-ciudades-favoritas li');
+            if (tieneFavoritas) {
+               panelFavoritas.classList.add('is-open');
+            }
+        }
+    }
+
     //Event listeners para eliminar ciudades favoritas
     document.querySelectorAll('.eliminar-ciudad').forEach(button => {
         //Añadir un listener a cada botón de eliminar ciudad
