@@ -185,7 +185,7 @@ body {
     width: 280px;
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
-    padding: 20px;
+    padding: 15px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     z-index: 100;
@@ -215,6 +215,68 @@ body {
 
 .panel-favoritas li:last-child {
     border-bottom: none; /*Quitar el último separador*/
+}
+
+.favoritas-header { /* Estilos para el h3 que actúa como botón */
+    margin-top: 0;
+    margin-bottom: 10px; /* Espacio antes de que el contenido se expanda */
+    border-bottom: 1px solid #555;
+    padding-bottom: 10px;
+    cursor: pointer;
+    user-select: none; /* Evita que el texto se seleccione al hacer clic */
+    display: flex; /* Para alinear el título y la flecha */
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1em; /* Ajusta el tamaño si es necesario */
+}
+
+.toggle-arrow {
+    display: inline-block; /* Para que transform funcione */
+    transition: transform 0.3s ease-in-out;
+    font-size: 0.8em; /* Tamaño de la flecha */
+}
+
+/* Contenedor del contenido desplegable */
+.favoritas-content-wrapper {
+    max-height: 0; /* Inicialmente colapsado (altura cero) */
+    overflow: hidden; /* Oculta el contenido que se desborda */
+    transition: max-height 0.4s ease-in-out, padding-top 0.4s ease-in-out; /* Animación suave */
+    /* No añadas padding aquí, se añadirá cuando esté abierto */
+}
+
+/* Estilos cuando el panel está abierto (se añade la clase .is-open al .panel-favoritas) */
+.panel-favoritas.is-open .favoritas-content-wrapper {
+    max-height: 400px; /* Una altura máxima suficientemente grande para tu contenido. Ajusta si es necesario. */
+                       /* Si el contenido es más largo, considera overflow-y: auto; aquí también */
+    padding-top: 10px; /* Añade un poco de espacio cuando está abierto */
+}
+
+.panel-favoritas.is-open .toggle-arrow {
+    transform: rotate(180deg); /* Gira la flecha hacia arriba */
+}
+
+/* Estilos para la lista y el mensaje de no favoritas (puedes mantener los que tenías) */
+.lista-ciudades-favoritas {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0; /* Quitar margen si el wrapper ya tiene padding */
+}
+
+.panel-favoritas .lista-ciudades-favoritas li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0; /* Reducir padding un poco */
+    border-bottom: 1px solid #444;
+}
+.panel-favoritas .lista-ciudades-favoritas li:last-child {
+    border-bottom: none;
+}
+
+.panel-favoritas .no-favoritas {
+    /* padding: 10px 0; ya lo tiene inline en el HTML, puedes quitarlo de ahí y ponerlo aquí */
+    font-size: 0.9em;
+    color: #ccc;
 }
 
 .eliminar-ciudad {
