@@ -6,8 +6,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const city1WeatherCard = document.getElementById('city1-weather');
     const city2WeatherCard = document.getElementById('city2-weather');
     const highlightsDiv = document.getElementById('comparison-highlights');
+    const idleAnimationArea = document.getElementById('idle-animation-area');
 
     const API_KEY = 'f1d8b93869fc6876f7753af18dc82ccd';
+
+    const weatherIcons = ['☀️', '☁️', '🌧️', '❄️', '⛈️', '🌫️', '💨'];
+
+    function createAnimatedIcons() {
+        if (!idleAnimationArea) return;
+        idleAnimationArea.innerHTML = ''; //Limpiar iconos anteriores si se llama de nuevo
+
+        const numberOfIcons = 7;
+
+        for (let i = 0; i < numberOfIcons; i++) {
+            const iconSpan = document.createElement('span');
+            iconSpan.classList.add('animated-weather-icon');
+            iconSpan.textContent = weatherIcons[Math.floor(Math.random() * weatherIcons.length)];
+
+            //Posición y animación aleatorias para cada icono
+            iconSpan.style.top = `${Math.random() * 80 + 5}%`; //Entre 5% y 85% para que no estén muy en los bordes
+            iconSpan.style.left = `${Math.random() * 85 + 5}%`;
+            iconSpan.style.fontSize = `${Math.random() * 1.5 + 2}em`;
+            
+            //Aplicamos la animación
+            iconSpan.style.animationName = 'floatDrift';
+            iconSpan.style.animationDuration = `${Math.random() * 10 + 10}s`;
+            iconSpan.style.animationDelay = `-${Math.random() * 15}s`; //Inicio aleatorio en el ciclo de animación
+            iconSpan.style.animationIterationCount = 'infinite';
+            iconSpan.style.animationTimingFunction = 'ease-in-out';
+            
+            idleAnimationArea.appendChild(iconSpan);
+        }
+        idleAnimationArea.style.display = 'block'; //Asegurarse de que está visible
+    }
+
+    //Llama a esta función cuando la página carga para mostrar los iconos inicialmente
+    if (resultsArea.style.display === 'none' || !resultsArea.style.display) { //Solo si no hay resultados
+        createAnimatedIcons();
+    }
 
     compareBtn.addEventListener('click', async () => {
         const city1 = city1Input.value.trim();
@@ -18,7 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        //Ocultar animación de iconos y mostrar área de resultados
+        if (idleAnimationArea) {
+            idleAnimationArea.style.display = 'none';
+        }
+
         resultsArea.style.display = 'block'; //Mostrar área de resultados
+        
         city1WeatherCard.innerHTML = '<p>Cargando datos para ' + city1 + '...</p>';
         city2WeatherCard.innerHTML = '<p>Cargando datos para ' + city2 + '...</p>';
         city1WeatherCard.classList.remove('visible'); //Quitar clase por si ya estaba
@@ -29,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         highlightsDiv.classList.remove('visible');
 
         try {
+            //Usamos el fetchWeatherData modificado para que devuelva un objeto de error en lugar de lanzar una excepción
             const [weather1, weather2] = await Promise.all([
                 fetchWeatherData(city1),
                 fetchWeatherData(city2)
@@ -69,9 +112,15 @@ document.addEventListener('DOMContentLoaded', () => {
             city2WeatherCard.classList.remove('visible');
             highlightsDiv.style.display = 'none';
             highlightsDiv.classList.remove('visible');
+        
+            //Volvemos a mostrar la animación si hay un error grave
+            if (idleAnimationArea) {
+                createAnimatedIcons();
+            }
         }
     });
 
+    //Función para obtener datos del clima de OpenWeatherMap
     async function fetchWeatherData(city) {
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=es`;
         const response = await fetch(url);
@@ -81,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return await response.json();
     }
 
+    //Función para mostrar los datos del clima en el HTML
     function displayWeather(data, element, cityNameForError) {
         if (!data || data.cod !== 200) { //OpenWeatherMap usa 'cod: 200' para éxito
             element.innerHTML = `<h2>${cityNameForError}</h2><p>No se pudieron obtener los datos.</p>`;
