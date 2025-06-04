@@ -78,19 +78,21 @@
 
     {% if user.is_authenticated %}
     <div class="panel-favoritas" data-eliminar-url="{% url 'eliminar_ciudad_ajax' %}">
-        <h3>Mis ciudades favoritas</h3>
-        {% if favoritas %}
-        <ul>
-            {% for ciudad in favoritas %}
-            <li id="ciudad-{{ ciudad.id }}">
-                <span>{{ ciudad.nombre }}</span>
-                <button class="eliminar-ciudad" data-id="{{ ciudad.id }}" title="Eliminar {{ciudad.nombre}} de favoritas">❌</button>
-            </li>
-            {% endfor %}
-        </ul>
-        {% else %}
-        <p>No has guardado ninguna ciudad como favorita todavía.</p>
-        {% endif %}
+        <h3 id="favoritas-toggle" class="favoritas-header"> Mis ciudades favoritas
+            <span class="toggle-arrow">▼</span> </h3>
+        <div class="favoritas-content-wrapper"> {% if favoritas %}
+            <ul class="lista-ciudades-favoritas">
+                {% for ciudad in favoritas %}
+                <li id="ciudad-{{ ciudad.id }}">
+                    <span>{{ ciudad.nombre }}</span>
+                    <button class="eliminar-ciudad" data-id="{{ ciudad.id }}" title="Eliminar {{ciudad.nombre}} de favoritas">❌</button>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="no-favoritas" style="padding: 10px 0;">No has guardado ninguna ciudad como favorita todavía.</p>
+            {% endif %}
+        </div>
     </div>
     {% endif %}
 
