@@ -6,42 +6,48 @@ document.addEventListener('DOMContentLoaded', () => {
     const city1WeatherCard = document.getElementById('city1-weather');
     const city2WeatherCard = document.getElementById('city2-weather');
     const highlightsDiv = document.getElementById('comparison-highlights');
-    const idleAnimationArea = document.getElementById('idle-animation-area');
+    const mainPageContainer = document.querySelector('main.container');
 
     const API_KEY = 'f1d8b93869fc6876f7753af18dc82ccd';
 
-    const weatherIcons = ['☀️', '☁️', '🌧️', '❄️', '⛈️', '🌫️', '💨'];
+    const weatherIconsArray = ['☀️', '☁️', '🌧️', '❄️', '⛈️', '🌫️', '💨', '🌬️', '🌥️', '🌦️', '🌤️', '🌪️'];
+
+    //Función para Crear y Quitar Iconos Animados
+    function removeAnimatedIcons() {
+        if (!mainPageContainer) return;
+        const existingIcons = mainPageContainer.querySelectorAll('.animated-weather-icon');
+        existingIcons.forEach(icon => icon.remove());
+    }
 
     function createAnimatedIcons() {
-        if (!idleAnimationArea) return;
-        idleAnimationArea.innerHTML = ''; //Limpiar iconos anteriores si se llama de nuevo
+        if (!mainPageContainer) return;
+        removeAnimatedIcons(); //Limpiar cualquier icono anterior
 
-        const numberOfIcons = 7;
+        const numberOfIcons = 25;
 
         for (let i = 0; i < numberOfIcons; i++) {
             const iconSpan = document.createElement('span');
             iconSpan.classList.add('animated-weather-icon');
-            iconSpan.textContent = weatherIcons[Math.floor(Math.random() * weatherIcons.length)];
+            iconSpan.textContent = weatherIconsArray[Math.floor(Math.random() * weatherIconsArray.length)];
 
-            //Posición y animación aleatorias para cada icono
-            iconSpan.style.top = `${Math.random() * 80 + 5}%`; //Entre 5% y 85% para que no estén muy en los bordes
-            iconSpan.style.left = `${Math.random() * 85 + 5}%`;
-            iconSpan.style.fontSize = `${Math.random() * 1.5 + 2}em`;
+            iconSpan.style.top = `${Math.random() * 90 + 5}%`; //Se distribuyen en la altura de main.container
+            iconSpan.style.left = `${Math.random() * 90 + 5}%`;//Se distribuyen en el ancho de main.container
+            iconSpan.style.fontSize = `${Math.random() * 2 + 1.8}em`;
             
-            //Aplicamos la animación
             iconSpan.style.animationName = 'floatDrift';
-            iconSpan.style.animationDuration = `${Math.random() * 10 + 10}s`;
-            iconSpan.style.animationDelay = `-${Math.random() * 15}s`; //Inicio aleatorio en el ciclo de animación
+            iconSpan.style.animationDuration = `${Math.random() * 15 + 12}s`;
+            iconSpan.style.animationDelay = `-${Math.random() * 25}s`; 
             iconSpan.style.animationIterationCount = 'infinite';
             iconSpan.style.animationTimingFunction = 'ease-in-out';
             
-            idleAnimationArea.appendChild(iconSpan);
+            //Añadir los iconos a main.container
+            //Para que estén "detrás" de los inputs y resultados, el z-index en CSS es 0
+            mainPageContainer.appendChild(iconSpan); 
         }
-        idleAnimationArea.style.display = 'block'; //Asegurarse de que está visible
     }
 
-    //Llama a esta función cuando la página carga para mostrar los iconos inicialmente
-    if (resultsArea.style.display === 'none' || !resultsArea.style.display) { //Solo si no hay resultados
+    //Mostrar la animación de iconos al cargar la página si no hay resultados
+    if (resultsArea.style.display === 'none' || !resultsArea.style.display) {
         createAnimatedIcons();
     }
 
@@ -54,10 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        //Ocultar animación de iconos y mostrar área de resultados
-        if (idleAnimationArea) {
-            idleAnimationArea.style.display = 'none';
-        }
+        //Quitamos animación de iconos
+        removeAnimatedIcons();
 
         resultsArea.style.display = 'block'; //Mostrar área de resultados
         
@@ -114,9 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
             highlightsDiv.classList.remove('visible');
         
             //Volvemos a mostrar la animación si hay un error grave
-            if (idleAnimationArea) {
-                createAnimatedIcons();
-            }
+            createAnimatedIcons();
         }
     });
 
