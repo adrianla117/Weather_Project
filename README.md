@@ -1,6 +1,4 @@
-#SkyCheck - Aplicación del tiempo
 ![Logo_SkyCheck](https://github.com/user-attachments/assets/846d990b-3243-486c-a84a-caf18bc317fd)
-
 SkyCheck es una aplicación web dinámica construida con Django que proporciona información meteorológica actual, permite a los usuarios buscar el clima de ciudades, guardar sus ubicaciones favoritas, localizar el tiempo en un mapa interactivo, comparar el clima entre dos ciudades y disfrutar de recomendaciones de canciones basadas en el tiempo.
 
 ![SkyCheck Home Page](https://i.imgur.com/7a1f31.jpg) ## ✨ Características Principales
