@@ -380,15 +380,29 @@ footer {
     height: 100px;
 }
 
-.messages {
-    list-style-type: none; 
-    padding: 0; 
-    margin: 0; 
-    position: fixed; 
-    top: 160px; left: 50%; 
-    transform: translateX(-50%); 
-    width: 90%; 
-    max-width: 500px; 
-    z-index: 2000; 
+/*Estilos para el contenedor de mensajes de Django*/
+ul.messages {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    top: 170px;
+    left: 50%;
+    transform: translateX(-50%); /*Centra el bloque horizontalmente*/
+    width: 90%;
+    max-width: 550px;
+    z-index: 2000;
     text-align: center;
+}
+
+/*Estilo base para cada ítem de mensaje*/
+li.message-item {
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 1em;
+    text-align: center;
+    box-shadow: 0 3px 7px rgba(0,0,0,0.25);
+    opacity: 1; /*Para el script de desvanecimiento*/
 }
