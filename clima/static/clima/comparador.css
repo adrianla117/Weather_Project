@@ -275,3 +275,44 @@ footer {
     line-height: 1.6;
     color: #34495e;
 }
+
+/*Estilos para la animación para los iconos de clima*/
+.idle-animation-area {
+    width: 100%;
+    max-width: 800px; /* Ajusta al ancho de tu contenido principal si es necesario */
+    height: 250px;    /* Altura del área de animación, ajústala a tu gusto */
+    position: relative; /* Para posicionar los iconos absolutamente dentro de él */
+    margin: 30px auto;  /* Margen para separarlo y centrarlo */
+    overflow: hidden;   /* Para que los iconos no se salgan visiblemente si se mueven mucho */
+    /* border: 1px dashed #ddd; /* Temporal, para ver sus límites */
+}
+
+.animated-weather-icon {
+    position: absolute;
+    font-size: 3em; /* Tamaño base del emoji/icono */
+    opacity: 0;       /* Empezar invisible para un fade-in */
+    user-select: none; /* Para que no se puedan seleccionar los iconos */
+    /* La animación se definirá y aplicará con JS para más variedad */
+}
+
+/* Definición de una animación de ejemplo */
+@keyframes floatDrift {
+    0% {
+        transform: translateY(20px) translateX(0px) rotate(0deg);
+        opacity: 0;
+    }
+    20% { /* Aparece gradualmente */
+        opacity: 0.6;
+    }
+    50% { /* Se mueve un poco */
+        transform: translateY(-15px) translateX(10px) rotate(5deg);
+        opacity: 0.7;
+    }
+    80% { /* Vuelve a desvanecerse */
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(20px) translateX(-10px) rotate(-5deg);
+        opacity: 0;
+    }
+}
