@@ -63,7 +63,7 @@ SkyCheck es una aplicación web dinámica construida con Django que proporciona 
 
 * **Plataforma de Despliegue (Prevista):** [Render](http://render.com/)
 
-## 🚀 Configuración e Instalación (Desarrollo Local)
+## 🚀 Configuración e Instalación (Desarrollo Local) para posibles futuros colaboradores
 
 1.  **Prerrequisitos:**
     * Python 3.8 o superior
@@ -125,7 +125,6 @@ SkyCheck es una aplicación web dinámica construida con Django que proporciona 
         GOOGLE_PLACES_API_KEY = os.environ.get('GOOGLE_PLACES_API_KEY')
         # ...etc.
         ```
-        *(Nota: Tu `settings.py` actual tiene las claves directamente. Considera moverlas a variables de entorno para mayor seguridad, especialmente para `SECRET_KEY` y las API keys).*
 
 7.  **Aplicar Migraciones de la Base de Datos:**
     ```bash
@@ -187,5 +186,5 @@ Esta aplicación está preparada para desplegarse en Render.
 * Mejorar la visualización en dispositivos móviles.
 * Mejorar el servidor web para mejorar la rapidez.
 
-Puedes visitar la web en el siguiente enlace:
+## ➡️ Puedes visitar la web en el siguiente enlace:
 https://www.skycheck.app
