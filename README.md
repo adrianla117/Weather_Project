@@ -72,7 +72,7 @@ SkyCheck es una aplicación web dinámica construida con Django que proporciona 
 
 2.  **Clonar el Repositorio:**
     ```bash
-    git clone URL_DE_TU_REPOSITORIO_EN_GITHUB
+    git clone https://github.com/adrianla117/Weather_Project.git
     cd Weather_Project
     ```
 
@@ -98,7 +98,7 @@ SkyCheck es una aplicación web dinámica construida con Django que proporciona 
    
     * Añade tus claves (reemplaza `your_..._key` con tus claves reales):
         ```env
-        SECRET_KEY='tu_django_secret_key_super_secreta'
+        SECRET_KEY='tu_django_key_secreta'
         DEBUG=True
         DATABASE_URL='sqlite:///db.sqlite3'
         OPENWEATHERMAP_API_KEY='your_openweathermap_api_key'
@@ -152,7 +152,7 @@ Para una funcionalidad completa, necesitarás obtener y configurar las siguiente
 
 * **OpenCage Geocoding API Key:** Para convertir coordenadas a nombres de lugar en el "Localizador". Consíguela en [OpenCage Data](http://opencagedata.com/).
 
-Estas claves se configuran en `weatherproject/settings.py` (o, preferiblemente, como variables de entorno). La clave de OpenCage se usa actualmente en los archivos JavaScript (`localizador_script.js` y `comparador_script.js`).
+Estas claves se configuran en `settings.py` (o, preferiblemente, como variables de entorno). La clave de OpenCage se usa actualmente en los archivos JavaScript (`localizador_script.js` y `comparador_script.js`).
 
 ## ☁️ Despliegue (Render.com)
 
