@@ -23,6 +23,33 @@
 </head>
 
 <body>
+    {% if messages %}
+        <ul class="messages" style="list-style-type: none; padding: 0; margin: 0; position: fixed; top: 160px; /* Ajusta si la altura del menú cambia */ left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; z-index: 2000; text-align: center;">
+            {% for message in messages %}
+                <li{% if message.tags %} class="message-item {{ message.tags }}"{% endif %}
+                    style="padding: 10px 15px; margin-bottom: 8px; border-radius: 4px; color: #fff; font-size: 0.9em;
+                           {% if message.tags == 'success' %} background-color: #28a745;
+                           {% elif message.tags == 'warning' %} background-color: #ffc107; color: #212529;
+                           {% elif message.tags == 'error' %} background-color: #dc3545;
+                           {% elif message.tags == 'info' %} background-color: #17a2b8;
+                           {% else %} background-color: #6c757d;
+                           {% endif %} box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+        <script>
+            setTimeout(function() {
+                const messagesContainer = document.querySelector('.messages');
+                if (messagesContainer) {
+                    messagesContainer.style.transition = 'opacity 0.5s ease-out';
+                    messagesContainer.style.opacity = '0';
+                    setTimeout(() => { messagesContainer.innerHTML = ''; messagesContainer.style.display = 'none'; }, 500);
+                }
+            }, 5000); //Mensajes visibles por 5 segundos
+        </script>
+    {% endif %}
+
     <div id="fondo-clima"></div>
 
     <div class="contenedor-menu">
@@ -66,31 +93,50 @@
         </div>
 
         {% if user.is_authenticated %}
-        <form id="form-guardar-ciudad" method="post" action="{% url 'guardar_ciudad' %}">
-            {% csrf_token %}
-            <input type="hidden" name="nombre_ciudad" id="input-ciudad-a-guardar" value="{{ weather.name|default:'Vigo' }}">
-            <button type="submit">Guardar ciudad como favorita</button>
-        </form>
+            {% if puede_anadir_mas %}
+                <form id="form-guardar-ciudad" method="post" action="{% url 'guardar_ciudad' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="nombre_ciudad" id="input-ciudad-a-guardar" value="{{ current_city_name|default_if_none:'' }}">
+                    <button type="submit">Guardar ciudad como favorita</button>
+                </form>
+            {% else %}
+                <p class="limite-favoritas-mensaje"><em>Has alcanzado el límite de {{ MAX_FAVORITAS }} ciudades favoritas.</em></p>
+            {% endif %}
         {% else %}
-        <p><em>Inicia sesión para guardar esta ciudad como favorita.</em></p>
+            <p><em>Inicia sesión para guardar esta ciudad como favorita.</em></p>
         {% endif %}
     </div>
 
     {% if user.is_authenticated %}
-    <div class="panel-favoritas" data-eliminar-url="{% url 'eliminar_ciudad_ajax' %}">
-        <h3 id="favoritas-toggle" class="favoritas-header"> Mis ciudades favoritas
-            <span class="toggle-arrow">▼</span> </h3>
-        <div class="favoritas-content-wrapper"> {% if favoritas %}
+    <div class="panel-favoritas {% if not favoritas_con_clima and not puede_anadir_mas %}is-empty-and-full{% endif %}" data-eliminar-url="{% url 'eliminar_ciudad_ajax' %}">
+        <h3 id="favoritas-toggle" class="favoritas-header">
+            Mis ciudades favoritas ({{ num_favoritas_actuales }}/{{ MAX_FAVORITAS }})
+            <span class="toggle-arrow">▼</span>
+        </h3>
+        <div class="favoritas-content-wrapper">
+            {% if favoritas_con_clima %}
             <ul class="lista-ciudades-favoritas">
-                {% for ciudad in favoritas %}
-                <li id="ciudad-{{ ciudad.id }}">
-                    <span>{{ ciudad.nombre }}</span>
-                    <button class="eliminar-ciudad" data-id="{{ ciudad.id }}" title="Eliminar {{ciudad.nombre}} de favoritas">❌</button>
+                {% for item_fav in favoritas_con_clima %}
+                <li id="ciudad-{{ item_fav.ciudad.id }}">
+                    <div class="ciudad-info-favorita">
+                        <span class="ciudad-nombre-favorita">{{ item_fav.ciudad.nombre }}</span>
+                        {% if item_fav.weather and item_fav.weather.cod == 200 %}
+                            <span class="ciudad-clima-detalle">
+                                {% if item_fav.icon_url %}
+                                    <img src="{{ item_fav.icon_url }}" alt="{{ item_fav.weather.weather.0.description }}" class="fav-weather-icon">
+                                {% endif %}
+                                {{ item_fav.weather.main.temp|floatformat:0 }}°C, {{ item_fav.weather.weather.0.description|capfirst }}
+                            </span>
+                        {% else %}
+                            <span class="ciudad-clima-detalle error">--°C, no disponible</span>
+                        {% endif %}
+                    </div>
+                    <button class="eliminar-ciudad" data-id="{{ item_fav.ciudad.id }}" title="Eliminar {{ item_fav.ciudad.nombre }} de favoritas">❌</button>
                 </li>
                 {% endfor %}
             </ul>
             {% else %}
-            <p class="no-favoritas" style="padding: 10px 0;">No has guardado ninguna ciudad como favorita todavía.</p>
+            <p class="no-favoritas">Aún no tienes ciudades favoritas.</p>
             {% endif %}
         </div>
     </div>
