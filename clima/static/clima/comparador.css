@@ -100,6 +100,8 @@ main.container {
     align-items: center;
     padding-top: calc(20px + 150px); /*Espacio para el menú fijo*/
     width: 100%;
+    position: relative; /*Para que los iconos con position:absolute se posicionen respecto a main.container*/
+    overflow: hidden;   /*Para que los iconos no se salgan de main.container y causen scroll innecesario*/
 }
 
 .titulo1 {
@@ -277,38 +279,28 @@ footer {
 }
 
 /*Estilos para la animación para los iconos de clima*/
-.idle-animation-area {
-    width: 100%;
-    max-width: 800px; /* Ajusta al ancho de tu contenido principal si es necesario */
-    height: 250px;    /* Altura del área de animación, ajústala a tu gusto */
-    position: relative; /* Para posicionar los iconos absolutamente dentro de él */
-    margin: 30px auto;  /* Margen para separarlo y centrarlo */
-    overflow: hidden;   /* Para que los iconos no se salgan visiblemente si se mueven mucho */
-    /* border: 1px dashed #ddd; /* Temporal, para ver sus límites */
-}
-
 .animated-weather-icon {
     position: absolute;
-    font-size: 3em; /* Tamaño base del emoji/icono */
-    opacity: 0;       /* Empezar invisible para un fade-in */
-    user-select: none; /* Para que no se puedan seleccionar los iconos */
-    /* La animación se definirá y aplicará con JS para más variedad */
+    font-size: 3em;
+    opacity: 0; /*Empezar invisible*/
+    user-select: none; /*Para que no se puedan seleccionar los iconos por el usuario*/
+    z-index: 0; /*Asegurarse de que los iconos no se superpongan a otros elementos*/
 }
 
-/* Definición de una animación de ejemplo */
+/*La animación*/
 @keyframes floatDrift {
     0% {
         transform: translateY(20px) translateX(0px) rotate(0deg);
         opacity: 0;
     }
-    20% { /* Aparece gradualmente */
+    20% { /*Aparece gradualmente*/
         opacity: 0.6;
     }
-    50% { /* Se mueve un poco */
+    50% { /*Se mueve un poco*/
         transform: translateY(-15px) translateX(10px) rotate(5deg);
         opacity: 0.7;
     }
-    80% { /* Vuelve a desvanecerse */
+    80% { /*Vuelve a desvanecerse*/
         opacity: 0.6;
     }
     100% {
