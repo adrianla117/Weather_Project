@@ -31,16 +31,16 @@ document.addEventListener('DOMContentLoaded', () => {
         //Busca IDs reales en Spotify.
         //Ejemplo: vas a Spotify -> Canción -> Compartir -> Copiar URI de Spotify (ej: spotify:track:ID_DE_LA_CANCION)
         //O Compartir -> Incrustar pista -> el ID está en el código del iframe.
-        'lluvia': { title: 'Riders on the Storm', artist: 'The Doors', spotifyTrackId: '5Hwsq7LQHzOIttN5hVdPNY' },
-        'llovizna': { title: 'Come Away With Me', artist: 'Norah Jones', spotifyTrackId: '0Cv4uNn4A33sQTc6t4gD49' },
-        'tormenta': { title: 'Thunderstruck', artist: 'AC/DC', spotifyTrackId: '57bgtoPSgt236HzfBOd8kj' },
-        'nieve': { title: 'Let It Snow!', artist: 'Dean Martin', spotifyTrackId: '323t3OHfB13n3EjMvLPiq9' },
-        'nuboso': { title: 'Mr. Blue Sky', artist: 'Electric Light Orchestra', spotifyTrackId: '2RlgNHKcydI9sayD2Df2xp' },
-        'nubes': { title: 'Cloudbusting', artist: 'Kate Bush', spotifyTrackId: '5VOCuM1D2Ea1H9u2471F7S' },
-        'niebla': { title: 'Into the Mystic', artist: 'Van Morrison', spotifyTrackId: '3lh3bMOmGkLnp6K2A2V2A5' },
-        'bruma': { title: 'Into the Mystic', artist: 'Van Morrison', spotifyTrackId: '3lh3bMOmGkLnp6K2A2V2A5' },
-        'despejado': { title: 'Here Comes The Sun', artist: 'The Beatles', spotifyTrackId: '6dGnYIeXmHdcikdzNNDMm2' },
-        'soleado': { title: 'Walking on Sunshine', artist: 'Katrina & The Waves', spotifyTrackId: '05wIrZSwuaVWhcv5FfZNgu' },
+        'lluvia': { title: 'Rain On Me', artist: 'Lady Gaga, Ariana Grande', spotifyTrackId: '24ySl2hOPGCDcxBxG22N3T' },
+        'llovizna': { title: 'Good Days', artist: 'SZA', spotifyTrackId: '3YJJjQPAbDT7mGpX3WtQ9A' },
+        'tormenta': { title: 'Blinding Lights', artist: 'The Weeknd', spotifyTrackId: '0VjIjW4GlUZAMYd2vXMi3b' },
+        'nieve': { title: 'cardigan', artist: 'Taylor Swift', spotifyTrackId: '4R2kfaDFhslZEMJqAFNpdd' },
+        'nuboso': { title: 'Ojitos Lindos', artist: 'Bad Bunny, Bomba Estéreo', spotifyTrackId: '3k3NWokhRRkEPhCzPmV8TW' },
+        'nubes': { title: 'Save Your Tears', artist: 'The Weeknd', spotifyTrackId: '5QO79kh1waicV47BqGRL3g' },
+        'niebla': { title: 'Thriller', artist: 'Michael Jackson', spotifyTrackId: '1daLq4r3m2sPP324M1iG4w' },
+        'bruma': { title: 'Thriller', artist: 'Michael Jackson', spotifyTrackId: '1daLq4r3m2sPP324M1iG4w' },
+        'despejado': { title: 'Levitating', artist: 'Dua Lipa', spotifyTrackId: '39LLxExYz6ewLAcYrzQQyP' },
+        'soleado': { title: 'As It Was', artist: 'Harry Styles', spotifyTrackId: '4LRPiXqCikLlN15c3yImP7' },
         
         //Fallbacks para condiciones principales (weather.main)
         'rain': { title: 'Have You Ever Seen The Rain?', artist: 'Creedence Clearwater Revival', spotifyTrackId: '2LawezPeJhN4AWuSB0GtAU'},
