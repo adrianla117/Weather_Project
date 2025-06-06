@@ -3,14 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <title>Registro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Lora", serif;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-color: blanchedalmond;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            
+        }
+
+        .contenedor-registro {
+            width: 100%;
+            max-width: 700px;
+        }
+
+        h1 {
+            color: #48484A;
+            margin: 40px;
+            font-size: 50px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #48484A;
+            margin: 40px;
+            font-size: 35px;
+            text-align: center;
+        }
+
+        form {
+            color: #F25C3D;
+        }
+
+        label {
+            font-size: 22px;
+        }
+
+        input {
+            margin: 10px;
+            width: 60%;
+            height: 25px;
+            border-color: #f1a090;
+        }
+
+        button {
+            background-color: #f1a090;
+            color: white;
+            border: none;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            padding: 10px 16px;
+            transition: background-color 0.5s ease;
+            margin: 20px;
+            text-align: center;
+            margin-left: 280px;
+        }
+
+        button:hover {
+            background-color: #F25C3D;
+        }
+
+        p {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #48484A;
+        }
+
+        a {
+            color: #F25C3D;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .pregunta{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>Registro de usuario</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Registrarme</button>
-    </form>
-    <p>¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión aquí</a></p>
+    <div class="contenedor-registro">
+        <h1>Bienvenido a Skycheck</h1>
+        <h2>Registro de usuario</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Registrarme</button>
+        </form>
+        <p class="pregunta">¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión aquí</a></p>
+    </div>
 </body>
 </html>

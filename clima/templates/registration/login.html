@@ -2,14 +2,80 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
     <title>Iniciar sesión</title>
+    <style>
+        body{
+            font-family: "Lora", serif;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-color: blanchedalmond;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .contenedor-login{
+            
+        }
+
+        h1{
+            color: #48484A;
+            margin: 40px;
+            font-size: 50px;
+        }
+
+        h2{
+            color: #48484A;
+            margin: 40px;
+            font-size: 35px;
+        }
+
+        form{
+            color: #F25C3D;
+        }
+
+        label{
+            font-size: 26px;
+        }
+
+        input{
+            margin: 10px;
+            width: 60%;
+            height: 25px;
+            border-color: #f1a090;
+        }
+
+        button{
+            background-color: #f1a090;
+            color: white;
+            border: none;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            padding: 10px 16px;
+            transition: background-color 0.5s ease;
+            margin: 20px;
+        }
+
+        button:hover{
+            background-color: #F25C3D;
+        }
+    </style>
 </head>
 <body>
-    <h1>Iniciar sesión</h1>
-    <form method="post"> <!-- El método POST se utiliza para enviar datos al servidor -->
-        {% csrf_token %} <!-- Token CSRF para proteger contra ataques CSRF -->
-        {{ form.as_p }} <!-- Renderiza el formulario como párrafos -->
-        <button type="submit">Entrar</button>
-    </form>
+    <div class="contenedor-login">
+        <h1>Bienvenido a Skycheck</h1>
+        <h2>Iniciar sesión</h2>
+        <form method="post"> <!-- El método POST se utiliza para enviar datos al servidor -->
+            {% csrf_token %} <!-- Token CSRF para proteger contra ataques CSRF -->
+            {{ form.as_p }} <!-- Renderiza el formulario como párrafos -->
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
 </body>
 </html>
