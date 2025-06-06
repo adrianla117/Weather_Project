@@ -24,34 +24,35 @@ body {
     background-size: cover;
     background-position: center;
     z-index: -1;
-    transition: filter 1s ease, background-image 0.5s ease-in-out; /*Animación para filtro y cambio de imagen*/
+    transition: filter 1s ease, background-image 0.5s ease-in-out;
 }
 
 .contenedor-menu {
     width: 100%;
     background-color: #48484A;
-    /*position: relative; /*Para que el menú de usuario se posicione correctamente*/
-    height: 150px;;
+    height: 150px;
     position: fixed;
     top: 0;
     left: 0;
-    height: 150px;
     z-index: 1000;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0 20px;
 }
 
 .menu {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
     list-style: none;
-    height: 150px;
-    max-width: 1200px;
-    margin: 0 auto;
-    margin-left: 140px;
+    height: 100%;
+    padding: 0;
+    margin-right: 0;
 }
 
 .menu li {
-    padding: 6px;
+    padding: 50px;
 }
 
 .menu a {
@@ -59,6 +60,7 @@ body {
     color: white;
     transition: 0.5s color;
     font-size: 20px;
+    white-space: nowrap; /*Evitamos que el texto se rompa en varias líneas*/
 }
 
 .menu a:hover {
@@ -68,14 +70,11 @@ body {
 .logo1 img {
     width: 160px;
     height: 145px;
+    margin-right: 80px;
 }
 
 /*Estilos para los botones de usuario en el menú*/
 .menu-usuario-container {
-    position: absolute;
-    right: 200px;
-    top: 50%; /*Posicionar en el centro verticalmente*/
-    transform: translateY(-50%); /*Centrar verticalmente*/
     z-index: 1001;
 }
 
@@ -98,6 +97,7 @@ body {
     font-size: 16px;
     cursor: pointer;
     transition: 0.3s all;
+    white-space: nowrap; /*Evitamos que el texto se rompa en varias líneas*/
 }
 
 .menu-usuario .boton-sesion:hover, .menu-usuario form button.boton-sesion:hover {
@@ -105,7 +105,6 @@ body {
     color: white;
     border-color: #F25C3D;
 }
-
 
 .contenido-central {
     flex: 1;
@@ -115,7 +114,7 @@ body {
     align-items: center;
     gap: 20px;
     text-align: center;
-    padding: 20px; /*padding para que el contenido no se pegue a los bordes*/
+    padding: 180px 20px 20px; /*padding para que el contenido no se pegue a los bordes*/
     color: #333;
 }
 
@@ -153,6 +152,8 @@ body {
     display: flex; /*Para alinear input y botón en la misma línea*/
     gap: 10px;
     align-items: center;
+    flex-wrap: wrap; /*Permitir que los elementos se envuelvan en pantallas pequeñas*/
+    justify-content: center;
 }
 
 .contenedor-form form input[type="text"] {
@@ -405,4 +406,152 @@ li.message-item {
     text-align: center;
     box-shadow: 0 3px 7px rgba(0,0,0,0.25);
     opacity: 1; /*Para el script de desvanecimiento*/
+}
+
+/*Pantallas de tablet y móviles grandes*/
+@media (max-width: 1264px) {
+    .contenedor-menu {
+        height: 120px;
+        padding: 0 15px;
+    }
+
+    .menu {
+        justify-content: flex-start; /*Aseguramos que el logo y los enlaces se mantengan a la izquierda*/
+    }
+
+    .logo1 img {
+        width: 120px;
+        height: 110px;
+        margin-right: 30px;
+    }
+
+    .menu li {
+        padding: 30px;
+    }
+
+    .menu a {
+        font-size: 18px;
+    }
+
+    .menu-usuario {
+        gap: 30px;
+    }
+
+    .menu-usuario .boton-sesion .menu-usuario form button.boton-sesion {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+
+    .titulo1 {
+        font-size: 2em;
+    }
+
+    .contenedor-form {
+        padding: 20px;
+    }
+
+    .contenedor-form form input[type="text"] .contenedor-form form button[type="submit"] {
+        font-size: 16px;
+        padding: 8px 12px;
+    }
+
+    .panel-favoritas {
+        width: 300px;
+        top: 120px;
+    }
+
+    .contenido-central {
+        padding-top: 150px; /*Ajustamos el padding superior del contenido central*/
+    }
+}
+
+/*Pantallas de móvil*/
+@media (max-width: 768px) {
+    .contenedor-menu {
+        height: 100px;
+        flex-direction: column;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .menu {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap; /*Permitir que los elementos se envuelvan*/
+        height: auto;
+    }
+
+    .logo1 {
+        order: -1; /*Mover el logo al principio si hay wrapping*/
+        margin-bottom: 10px;
+    }
+
+    .logo1 img {
+        width: 100px;
+        height: 90px;
+        margin-right: 30px;
+    }
+
+    .menu li {
+        padding: 30px;
+    }
+
+    .menu a {
+        font-size: 16px;
+    }
+
+    .menu-usuario-container {
+        position: static; /*Eliminar posicionamiento absoluto*/
+        transform: none; /*Eliminar transform*/
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .menu-usuario {
+        justify-content: center; /*Centrar botones de usuario*/
+        flex-wrap: wrap; /*Permitir que los botones se envuelvan*/
+        gap: 10px;
+    }
+
+    .menu-usuario .boton-sesion .menu-usuario form button.boton-sesion {
+        padding: 5px 10px;
+        font-size: 13px;
+    }
+
+    .contenido-central {
+        padding-top: 130px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .titulo1 {
+        font-size: 1.8em;
+    }
+
+    .contenedor-form {
+        padding: 15px;
+        width: 95%; /*Ajustamos el ancho del formulario*/
+    }
+
+    .contenedor-form form {
+        flex-direction: column; /*Apilamos el input y el botón*/
+        width: 100%;
+    }
+
+    .contenedor-form form input[type="text"] .contenedor-form form button[type="submit"] {
+        width: 100%; /*Que ocupen todo el ancho disponible*/
+        font-size: 15px;
+        padding: 10px;
+    }
+
+    .panel-favoritas {
+        width: 250px;
+        top: 100px;
+        padding: 10px 15px;
+    }
+
+    ul.messages {
+        top: 120px; /*Ajustamos la posición de los mensajes*/
+        max-width: 95%;
+    }
 }
