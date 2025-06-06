@@ -53,6 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'fog': { title: 'The Foggy Dew', artist: 'The Chieftains & Sinead O\'Connor', spotifyTrackId: '1dU32H1L3b2H1HSKx0jGTT'}
     };
 
+    //Función para obtener una canción basada en la descripción del clima
+    //Intenta primero con palabras clave en la descripción detallada, luego con la condición principal (main)
     function getSongForWeather(weatherDescription, weatherMain) {
         const descriptionLower = weatherDescription.toLowerCase();
         const mainLower = weatherMain.toLowerCase();
@@ -113,11 +115,12 @@ document.addEventListener('DOMContentLoaded', () => {
             windEl.textContent = weatherData.wind.speed;
             weatherInfoDiv.style.display = 'flex'; //Mostrar resultados
 
-            // Lógica para la recomendación de canción
+            //Lógica para la recomendación de canción
             const weatherMainForSong = weatherData.weather[0].main;
             const weatherDescForSong = weatherData.weather[0].description;
             const recommendedSong = getSongForWeather(weatherDescForSong, weatherMainForSong);
 
+            //Si se encontró una recomendación de canción, actualiza el área de recomendación
             if (recommendedSong && songRecommendationArea && songTitleArtistEl && spotifyPlayerDiv) {
                 songTitleArtistEl.textContent = `${recommendedSong.title} - ${recommendedSong.artist}`;
                 spotifyPlayerDiv.innerHTML = `

@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
         existingIcons.forEach(icon => icon.remove());
     }
 
+    //Función para crear iconos animados de clima
+    //Estos iconos flotarán por la pantalla como fondo animado
     function createAnimatedIcons() {
         if (!mainPageContainer) return;
         removeAnimatedIcons(); //Limpiar cualquier icono anterior
@@ -149,7 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (mainCondition.includes('snow')) icon = '❄️';
         else if (mainCondition.includes('mist') || mainCondition.includes('fog')) icon = '🌫️';
 
-
         element.innerHTML = `
             <h2>${data.name} <span class="weather-icon">${icon}</span></h2>
             <p><strong>Temperatura:</strong> ${data.main.temp}°C (Sensación: ${data.main.feels_like}°C)</p>
@@ -213,6 +214,8 @@ document.addEventListener('DOMContentLoaded', () => {
         highlightsDiv.innerHTML += comparisonText;
     }
 
+    //Función para calcular un puntaje de clima ideal
+    //Basado en temperatura, condiciones y viento
     function calculateWeatherScore(data) {
         let score = 0;
         //Ideal: 20-25°C, sin lluvia, poco viento
@@ -227,6 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return score;
     }
 
+    //Función para sugerir actividades según el clima
     function getActivitySuggestion(data) {
         const temp = data.main.temp;
         const condition = data.weather[0].main.toLowerCase();
