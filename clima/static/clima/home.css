@@ -121,7 +121,7 @@ body {
 .titulo1 {
     font-weight: lighter;
     padding: 15px;
-    font-size: 2.5em;
+    font-size: 2.8em;
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -136,28 +136,37 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 15px;
-    background-color: rgba(255, 255, 255, 0.85); /*Fondo semitransparente para el formulario*/
-    padding: 30px;
+    gap: 30px;
+    background-color: rgba(255, 255, 255, 0.85); /*Fondo semitransparente para visualizar mejor el formulario*/
+    padding: 10px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    height: 320px;
+    width: 500px;
 }
 
 .contenedor-form h2, .contenedor-form p {
     color: #333;
 }
 
+.contenedor-form h2{
+    font-size: 30px;
+}
+
+.contenedor-form p{
+    font-size: 18px;
+}
 
 .contenedor-form form {
     display: flex; /*Para alinear input y botón en la misma línea*/
-    gap: 10px;
+    gap: 20px;
     align-items: center;
     flex-wrap: wrap; /*Permitir que los elementos se envuelvan en pantallas pequeñas*/
     justify-content: center;
 }
 
 .contenedor-form form input[type="text"] {
-    font-size: 18px;
+    font-size: 22px;
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 10px 15px;
@@ -171,7 +180,7 @@ body {
     cursor: pointer;
     transition: background-color 0.5s ease;
     padding: 12px 20px;
-    font-size: 18px;
+    font-size: 22px;
     border-radius: 8px;
 }
 
@@ -182,9 +191,9 @@ body {
 .panel-favoritas {
     position: fixed;
     right: 0;
-    top: 150px;
-    width: 350px;
-    background-color: rgba(0, 0, 0, 0.8);
+    top: 160px;
+    width: 360px;
+    background-color: rgba(0, 0, 0, 0.7);
     color: white;
     padding: 15px 20px;
     border-top-left-radius: 10px;
@@ -228,7 +237,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1.1em;
+    font-size: 1.3em;
+    color: #F25C3D;
 }
 
 .toggle-arrow {
@@ -284,7 +294,7 @@ body {
 
 .ciudad-nombre-favorita {
     font-weight: 600;
-    font-size: 1em;
+    font-size: 1.2em;
     color: #f0f0f0;
     white-space: nowrap;
     overflow: hidden;
@@ -294,7 +304,7 @@ body {
 }
 
 .ciudad-clima-detalle {
-    font-size: 0.8em;
+    font-size: 1em;
     color: #b0b0b0;
     display: flex;
     align-items: center;
@@ -443,7 +453,7 @@ li.message-item {
     }
 
     .titulo1 {
-        font-size: 2em;
+        font-size: 2.4em;
     }
 
     .contenedor-form {
@@ -525,7 +535,7 @@ li.message-item {
     }
 
     .titulo1 {
-        font-size: 1.8em;
+        font-size: 2.2em;
     }
 
     .contenedor-form {
