@@ -17,28 +17,29 @@ body {
 .contenedor-menu {
     width: 100%;
     background-color: #48484A;
-    /*position: relative; /*Para que el menú de usuario se posicione correctamente*/
-    height: 150px;;
+    height: 150px;
     position: fixed;
     top: 0;
     left: 0;
-    height: 150px;
     z-index: 1000;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0 20px;
 }
 
 .menu {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
     list-style: none;
-    height: 150px;
-    max-width: 1200px;
-    margin: 0 auto;
-    margin-left: 140px;
+    height: 100%;
+    padding: 0;
+    margin-right: 0;
 }
 
 .menu li {
-    padding: 6px;
+    padding: 50px;
 }
 
 .menu a {
@@ -46,6 +47,7 @@ body {
     color: white;
     transition: 0.5s color;
     font-size: 20px;
+    white-space: nowrap; /*Evitamos que el texto se rompa en varias líneas*/
 }
 
 .menu a:hover {
@@ -55,13 +57,10 @@ body {
 .logo1 img {
     width: 160px;
     height: 145px;
+    margin-right: 80px;
 }
 
 .menu-usuario-container {
-    position: absolute;
-    right: 200px;
-    top: 50%; /*Posicionar en el centro verticalmente*/
-    transform: translateY(-50%); /*Centrar verticalmente*/
     z-index: 1001;
 }
 
@@ -84,6 +83,7 @@ body {
     font-size: 16px;
     cursor: pointer;
     transition: 0.3s all;
+    white-space: nowrap; /*Evitamos que el texto se rompa en varias líneas*/
 }
 
 .menu-usuario .boton-sesion:hover, .menu-usuario form button.boton-sesion:hover {
@@ -231,4 +231,101 @@ footer {
 iframe {
     width: 400px !important;
     height: 120px !important;
+}
+
+/*Pantallas de tablet y móviles grandes*/
+@media (max-width: 1264px) {
+    .contenedor-menu {
+        height: 120px;
+        padding: 0 15px;
+    }
+
+    .menu {
+        justify-content: flex-start; /*Aseguramos que el logo y los enlaces se mantengan a la izquierda*/
+    }
+
+    .logo1 img {
+        width: 120px;
+        height: 110px;
+        margin-right: 30px;
+    }
+
+    .menu li {
+        padding: 30px;
+    }
+
+    .menu a {
+        font-size: 18px;
+    }
+
+    .menu-usuario {
+        gap: 30px;
+    }
+
+    .menu-usuario .boton-sesion .menu-usuario form button.boton-sesion {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+
+    .titulo1 {
+        font-size: 2em;
+    }
+}
+
+/*Pantallas de móvil*/
+@media (max-width: 768px) {
+    .contenedor-menu {
+        height: 100px;
+        flex-direction: column;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .menu {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap; /*Permitir que los elementos se envuelvan*/
+        height: auto;
+    }
+
+    .logo1 {
+        order: -1; /*Mover el logo al principio si hay wrapping*/
+        margin-bottom: 10px;
+    }
+
+    .logo1 img {
+        width: 100px;
+        height: 90px;
+        margin-right: 30px;
+    }
+
+    .menu li {
+        padding: 30px;
+    }
+
+    .menu a {
+        font-size: 16px;
+    }
+
+    .menu-usuario-container {
+        position: static; /*Eliminar posicionamiento absoluto*/
+        transform: none; /*Eliminar transform*/
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .menu-usuario {
+        justify-content: center; /*Centrar botones de usuario*/
+        flex-wrap: wrap; /*Permitir que los botones se envuelvan*/
+        gap: 10px;
+    }
+
+    .menu-usuario .boton-sesion .menu-usuario form button.boton-sesion {
+        padding: 5px 10px;
+        font-size: 13px;
+    }
+
+    .titulo1 {
+        font-size: 1.8em;
+    }
 }
